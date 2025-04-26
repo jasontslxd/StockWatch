@@ -7,14 +7,14 @@ export const MobileInput: React.FC = () => {
         <Container>
           <Row>
             <Col>
-              <p className="text-secondary text-center">Enter mobile Number</p>
+              <p className="text-secondary text-center">Enter Mobile Number (+852)</p>
             </Col>
           </Row>
           <Spacer size="xxs" />
           <Row>
             <Col className="d-flex justify-content-center">
               <InputGroup className="w-75">
-                <FormControl type="tel" className="border-0 border-bottom rounded-0 text-center fw-bold" placeholder="Mobile Number" aria-label="Mobile Number" />
+                <FormControl id="mobile-number" type="tel" className="border-0 border-bottom rounded-0 text-center fw-bold" placeholder="Mobile Number" aria-label="Mobile Number" />
               </InputGroup>
             </Col>
           </Row>

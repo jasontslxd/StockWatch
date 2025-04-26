@@ -15,7 +15,7 @@ export const SignUp: React.FC = () => {
         <h1 className="text-center text-white">Sign Up !</h1>
       </LandingBanner>
       <MobileInput />
-      <MobileSubmission />
+      <MobileSubmission flow="signup" />
     </>
   );
 };

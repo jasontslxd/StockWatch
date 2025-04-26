@@ -26,7 +26,6 @@
       "components": ["components"],
       "hooks": ["hooks"],
       "common": ["common"],
-      "database": ["database"],
       "pages": ["pages"]
     }
   },

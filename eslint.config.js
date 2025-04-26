@@ -23,7 +23,7 @@ export default tseslint.config(
         'warn',
         { allowConstantExport: true },
       ],
-      "no-unused-vars": "warn"
+      "@typescript-eslint/no-explicit-any": "warn"
     },
   },
 )

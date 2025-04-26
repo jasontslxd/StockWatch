@@ -1,9 +1,19 @@
-import { LandingBanner } from "components";
+import { LandingBanner, MobileInput, MobileSubmission, Spacer } from "components";
+import { Container } from "react-bootstrap";
+import { useNavigate } from "react-router";
 
 export const SignIn: React.FC = () => {
+  const navigate = useNavigate();
+
   return (
     <LandingBanner>
-      <h1>Sign In!</h1>
+      <Container className="pt-3 ps-3">
+        <i className="bi bi-arrow-90deg-left text-white" onClick={() => navigate('/')}></i>
+      </Container>
+      <Spacer size="xxlg" />
+      <h1 className="text-center text-white">Sign In !</h1>
+      <MobileInput />
+      <MobileSubmission flow="signin" />
     </LandingBanner>
   );
 };

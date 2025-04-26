@@ -9,7 +9,6 @@ export default defineConfig({
       components: "/src/components",
       hooks: "/src/hooks",
       common: "/src/common",
-      database: "/src/database",
       pages: "/src/pages",
     },
   },
