@@ -12,7 +12,7 @@ export const Navigation: React.FC = () => {
   const isMobile: boolean = viewportSize === ViewportSize.xs || viewportSize === ViewportSize.sm;
 
   return (
-    <Navbar className="px-3 d-flex justify-content-between">
+    <Navbar className="px-3 d-flex justify-content-between fixed-bottom">
       <Navbar.Brand>StockWatch</Navbar.Brand>
       <Nav>
         <NavItem>

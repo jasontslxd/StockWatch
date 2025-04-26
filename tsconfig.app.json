@@ -25,7 +25,9 @@
     "paths": {
       "components": ["components"],
       "hooks": ["hooks"],
-      "common": ["common"]
+      "common": ["common"],
+      "database": ["database"],
+      "pages": ["pages"]
     }
   },
   "include": ["src"]
