@@ -1,7 +1,7 @@
 import { createContext, PropsWithChildren, useState } from "react";
 import { IAuthContext } from "common";
 
-const AuthContext = createContext<IAuthContext>({
+export const AuthContext = createContext<IAuthContext>({
   token: null,
   onLoginSuccess: () => {},
   onLogout: () => {},

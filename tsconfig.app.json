@@ -26,7 +26,8 @@
       "components": ["components"],
       "hooks": ["hooks"],
       "common": ["common"],
-      "pages": ["pages"]
+      "pages": ["pages"],
+      "mocks": ["mocks"]
     }
   },
   "include": ["src"]

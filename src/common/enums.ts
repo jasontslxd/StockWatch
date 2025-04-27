@@ -6,3 +6,11 @@ export enum ViewportSize {
   xl = 'xl',
   xxl = 'xxl',
 }
+
+export enum Page {
+  Landing = '/',
+  SignIn = '/signin',
+  SignUp = '/signup',
+  Dashboard = '/dashboard',
+  Portfolio = '/portfolio',
+}

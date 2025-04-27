@@ -1,8 +1,9 @@
 import { Spacer } from "components";
 import { useEffect, useState } from "react";
 import { Button, Container, Spinner } from "react-bootstrap";
-import { Link } from "react-router";
-import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
+import { Link, useNavigate } from "react-router";
+import { getAuth, RecaptchaVerifier } from "firebase/auth";
+import { Page } from "common";
 
 export interface IMobileSubmissionProps {
   flow: 'signin' | 'signup';
@@ -11,6 +12,7 @@ export interface IMobileSubmissionProps {
 export const MobileSubmission: React.FC<IMobileSubmissionProps> = ({ flow }) => {
   const [loading, setLoading] = useState(false);
   const auth = getAuth();
+  const navigate = useNavigate();
 
   const onSignInSuccess = () => {
     window.alert("Sign in successful");
@@ -31,12 +33,14 @@ export const MobileSubmission: React.FC<IMobileSubmissionProps> = ({ flow }) => 
   const actionText = flow === 'signin' ? "Don't have an account?" : "Already have an account?";
 
   const sendVerificationCode = async () => {
-    const phoneNumber = (document.getElementById("mobile-number") as HTMLInputElement).value;
-    const phoneNumberWithCountryCode = `+852${phoneNumber}`;
+    // TODO: come back to this when google play payment is fixed
+    // const phoneNumber = (document.getElementById("mobile-number") as HTMLInputElement).value;
+    // const phoneNumberWithCountryCode = `+852${phoneNumber}`;
 
     setLoading(true);
-    const confirmationResult = await signInWithPhoneNumber(auth, phoneNumberWithCountryCode, (window as any).recaptchaVerifier);
-    console.log(confirmationResult)
+    // const confirmationResult = await signInWithPhoneNumber(auth, phoneNumberWithCountryCode, (window as any).recaptchaVerifier);
+    // console.log(confirmationResult)
+    navigate(Page.Dashboard);
   }
 
   return (
