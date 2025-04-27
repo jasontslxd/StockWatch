@@ -9,3 +9,5 @@ export * from './AppContainer';
 export * from './AppHeader';
 export * from './GainersLosers';
 export * from './TickerCard';
+export * from './OtpInput';
+export * from './OtpSubmission';

@@ -3,3 +3,4 @@ export * from './SignUp';
 export * from './SignIn';
 export * from './Dashboard';
 export * from './Portfolio';
+export * from './VerifyOtp';

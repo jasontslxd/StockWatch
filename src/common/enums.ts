@@ -4,13 +4,19 @@ export enum ViewportSize {
   md = 'md',
   lg = 'lg',
   xl = 'xl',
-  xxl = 'xxl',
+  xxl = 'xxl'
 }
 
 export enum Page {
   Landing = '/',
   SignIn = '/signin',
   SignUp = '/signup',
+  VerifyOtp = '/verify',
   Dashboard = '/dashboard',
   Portfolio = '/portfolio',
+}
+
+export enum LoginFlow {
+  SignIn = 'signin',
+  SignUp = 'signup'
 }

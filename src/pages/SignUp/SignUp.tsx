@@ -1,10 +1,15 @@
-import { Page } from "common";
+import { Page, LoginFlow } from "common";
 import { LandingBanner, Spacer, MobileInput, MobileSubmission } from "components";
+import { useState } from "react";
 import { Container } from "react-bootstrap";
 import { useNavigate } from "react-router";
+import { useNavigateOnAuth } from "hooks";
 
 export const SignUp: React.FC = () => {
   const navigate = useNavigate();
+  const [mobileValidationError, setMobileValidationError] = useState(false);
+
+  useNavigateOnAuth();
 
   return (
     <>
@@ -15,8 +20,8 @@ export const SignUp: React.FC = () => {
         <Spacer size="xxlg" />
         <h1 className="text-center text-white">Sign Up !</h1>
       </LandingBanner>
-      <MobileInput />
-      <MobileSubmission flow="signup" />
+      <MobileInput mobileValidationError={mobileValidationError} />
+      <MobileSubmission flow={LoginFlow.SignUp} setMobileValidationError={setMobileValidationError} />
     </>
   );
 };

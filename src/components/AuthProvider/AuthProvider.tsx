@@ -1,25 +1,33 @@
-import { createContext, PropsWithChildren, useState } from "react";
+import { createContext, PropsWithChildren, useEffect, useState } from "react";
 import { IAuthContext } from "common";
+import { getAuth, onAuthStateChanged, User } from "firebase/auth";
 
 export const AuthContext = createContext<IAuthContext>({
-  token: null,
+  user: null,
   onLoginSuccess: () => {},
   onLogout: () => {},
 });
 
 export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
-  const [token, setToken] = useState<string | null>(null);
+  const [user, setUser] = useState<User | null>(null);
 
-  const onLoginSuccess = (token: string) => {
-    setToken(token);
+  useEffect(() => {
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      setUser(user);
+    });
+  }, []);
+
+  const onLoginSuccess = (user: User) => {
+    setUser(user);
   };
 
   const onLogout = () => {
-    setToken(null);
+    setUser(null);
   };
 
   const contextValue: IAuthContext = {
-    token,
+    user,
     onLoginSuccess,
     onLogout,
   };

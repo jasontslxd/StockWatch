@@ -1,6 +1,8 @@
+import { User } from "firebase/auth";
+
 export type IAuthContext = {
-    token: string | null;
-    onLoginSuccess: (token: string) => void;
+    user: User | null;
+    onLoginSuccess: (user: User) => void;
     onLogout: () => void;
 }
 
