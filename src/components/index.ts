@@ -11,3 +11,5 @@ export * from './GainersLosers';
 export * from './TickerCard';
 export * from './OtpInput';
 export * from './OtpSubmission';
+export * from './TickerLogo';
+export * from './FirestoreProvider';

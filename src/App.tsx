@@ -1,4 +1,4 @@
-import { AuthProvider, ProtectedRoute } from "components"
+import { AuthProvider, FirestoreProvider, ProtectedRoute } from "components"
 import { Routes, Route } from "react-router"
 import { Dashboard, Landing, Portfolio, SignUp, SignIn, VerifyOtp } from "pages"
 import { Page } from "common"
@@ -15,15 +15,17 @@ export const App: React.FC = () => {
   }, []);
 
   return (
-    <AuthProvider>
-      <Routes>
-        <Route path={Page.Landing} element={<Landing />} />
+    <FirestoreProvider>
+      <AuthProvider>
+        <Routes>
+          <Route path={Page.Landing} element={<Landing />} />
         <Route path={Page.SignUp} element={<SignUp />} />
         <Route path={Page.SignIn} element={<SignIn />} />
         <Route path={Page.VerifyOtp} element={<VerifyOtp />} />
         <Route path={Page.Dashboard} element={<ProtectedRoute page={<Dashboard />} />} />
-        <Route path={Page.Portfolio} element={<ProtectedRoute page={<Portfolio />} />} />
-      </Routes>
-    </AuthProvider>
+          <Route path={Page.Portfolio} element={<ProtectedRoute page={<Portfolio />} />} />
+        </Routes>
+      </AuthProvider>
+    </FirestoreProvider>
   )
 }

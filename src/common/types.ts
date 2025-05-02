@@ -1,9 +1,14 @@
 import { User } from "firebase/auth";
+import { Firestore } from "firebase/firestore";
 
 export type IAuthContext = {
     user: User | null;
     onLoginSuccess: (user: User) => void;
     onLogout: () => void;
+}
+
+export type IFirestoreContext = {
+    firestore: Firestore | null;
 }
 
 export type IGainerLosersResponse = {

@@ -1,12 +1,7 @@
-import { createContext, PropsWithChildren, useEffect, useState } from "react";
+import { PropsWithChildren, useEffect, useState } from "react";
 import { IAuthContext } from "common";
 import { getAuth, onAuthStateChanged, User } from "firebase/auth";
-
-export const AuthContext = createContext<IAuthContext>({
-  user: null,
-  onLoginSuccess: () => {},
-  onLogout: () => {},
-});
+import { AuthContext } from "contexts";
 
 export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);

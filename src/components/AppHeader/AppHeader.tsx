@@ -1,4 +1,4 @@
-import { Col, Container, Offcanvas, Row} from "react-bootstrap";
+import { Button, Col, Container, Modal, Row} from "react-bootstrap";
 import { Spacer } from "components";
 import { useLocation, useNavigate } from "react-router";
 import { Page } from "common";
@@ -12,6 +12,7 @@ interface IAppHeaderProps {
 export const AppHeader: React.FC<IAppHeaderProps> = ({ title }) => {
   const auth = getAuth();
   const [showSettings, setShowSettings] = useState(false);
+  const [showLogoutConfirmation, setShowLogoutConfirmation] = useState(false);
   const onDashboardPage = useLocation().pathname === Page.Dashboard;
   const navigate = useNavigate();
 
@@ -19,33 +20,53 @@ export const AppHeader: React.FC<IAppHeaderProps> = ({ title }) => {
   const handleSettingsClose = () => setShowSettings(false);
 
   const handleLogout = async () => {
+    setShowLogoutConfirmation(true);
+  }
+
+  const handleLogoutConfirmation = async () => {
     await signOut(auth);
     navigate(Page.Landing);
   }
 
   return (
-    <Container>
-      <Row className="align-items-center">
-        <Col className="d-flex flex-row">
-          <h1 className="fw-bold">{title}</h1>
-        </Col>
-        <Col className="text-end">
-          {onDashboardPage ? (
-            <i className="bi bi-search" />
-          ) : (
-            <i className="bi bi-gear-fill" onClick={onSettingsClick}/>
-          )}
-        </Col>
-      </Row>
+    <>
+      <Container>
+        <Row className="align-items-center">
+          <Col className="d-flex flex-row">
+            <h1 className="fw-bold">{title}</h1>
+          </Col>
+          <Col className="text-end">
+            <Button variant="white" onClick={onSettingsClick}>
+              {onDashboardPage ? (
+                <i className="bi bi-search" />
+              ) : (
+                  <i className="bi bi-gear-fill" />
+              )}
+            </Button>
+          </Col>
+        </Row>
       <Spacer size="xxlg" />
-      <Offcanvas className="rounded-start w-50" show={showSettings} onHide={handleSettingsClose} placement="end">
-        <Offcanvas.Header closeButton>
-          <Offcanvas.Title>Settings</Offcanvas.Title>
-        </Offcanvas.Header>
-        <Offcanvas.Body>
-          <p onClick={handleLogout}><i className="bi bi-box-arrow-right" /> Logout</p>
-        </Offcanvas.Body>
-      </Offcanvas>
-    </Container>
+      </Container>
+      <Modal centered show={showSettings} onHide={handleSettingsClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Settings</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Button variant="white" onClick={handleLogout}><i className="bi bi-box-arrow-right" /> Logout</Button>
+        </Modal.Body>
+      </Modal>
+      <Modal size="sm" centered show={showLogoutConfirmation} onHide={() => setShowLogoutConfirmation(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Logout</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>Are you sure you want to logout?</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={handleLogoutConfirmation}>Yes</Button>
+          <Button variant="secondary" onClick={() => setShowLogoutConfirmation(false)}>No</Button>
+        </Modal.Footer>
+      </Modal>
+    </>
   );
 };
