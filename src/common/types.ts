@@ -11,6 +11,14 @@ export type IFirestoreContext = {
   firestore: Firestore | null;
 }
 
+export type ITickerPerformance = {
+  ticker: string;
+  price: string;
+  change_amount: string;
+  change_percentage: string;
+  volume: string;
+}
+
 export type IGainerLosersResponse = {
   metadata: string,
   last_updated: string
@@ -47,10 +55,37 @@ export type ICompanySearchMatch = {
   matchScore: string;
 }
 
-export type ITickerPerformance = {
+export type ICompanyNewsResponse = {
+  items: string;
+  sentiment_score_definition: string;
+  relevance_score_definition: string;
+  feed: ICompanyNewsFeedItem[];
+}
+
+export type ICompanyNewsFeedItem = {
+  title: string;
+  url: string;
+  time_published: string;
+  authors: string[];
+  summary: string;
+  banner_image: string;
+  source: string;
+  category_within_source: string;
+  source_domain: string;
+  topics: ICompanyNewsTopic[];
+  overall_sentiment_score: number;
+  overall_sentiment_label: string;
+  ticker_sentiment: ITickerSentiment[];
+}
+
+export type ICompanyNewsTopic = {
+  topic: string;
+  relevance_score: string;
+}
+
+export type ITickerSentiment = {
   ticker: string;
-  price: string;
-  change_amount: string;
-  change_percentage: string;
-  volume: string;
+  relevance_score: string;
+  ticker_sentiment_score: string;
+  ticker_sentiment_label: string;
 }

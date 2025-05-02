@@ -2,13 +2,18 @@ import { Button, Col, Row } from "react-bootstrap";
 import { useAuth } from "hooks";
 import { useNavigate } from "react-router";
 import { Page } from "common";
-import { Spacer } from "components";
+import { ShareInstrumentModal, Spacer } from "components";
 import { useState } from "react";
 
-export const InstrumentHeader: React.FC = () => {
+interface IInstrumentHeaderProps {
+  ticker: string;
+}
+
+export const InstrumentHeader: React.FC<IInstrumentHeaderProps> = ({ ticker }) => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const [isStarred, setIsStarred] = useState(false);
+  const [showShareModal, setShowShareModal] = useState(false);
 
   const handleStarClick = () => {
     setIsStarred(prevStar => !prevStar);
@@ -31,13 +36,14 @@ export const InstrumentHeader: React.FC = () => {
               <i className={`bi bi-star${isStarred ? "-fill" : ""} text-warning`} />
             </Button>
           ) : (
-            <Button variant="white" className="border-black">Login</Button>
+            <Button variant="white" className="border-black" onClick={() => navigate(Page.SignIn)}>Login</Button>
           )}
-          <Button variant="white">
+          <Button variant="white" onClick={() => setShowShareModal(true)}>
             <i className="bi bi-upload" />
           </Button>
         </Col>
       </Row>
+      <ShareInstrumentModal ticker={ticker} showShareInstrumentModal={showShareModal} setShowShareInstrumentModal={setShowShareModal} />
     </>
   )
 }

@@ -1,15 +1,24 @@
-import { useParams } from "react-router";
-import { InstrumentHeader, Spacer, TickerLogo } from "components";
+import { useNavigate, useParams } from "react-router";
+import { InstrumentHeader, Spacer, TickerLogo, TickerMovement, TickerNews } from "components";
 import { Col, Container, Row, Placeholder } from "react-bootstrap";
 import { useTickerLogoLink } from "hooks";
+import { useEffect } from "react";
+import { Page } from "common";
 
 export const Instrument: React.FC = () => {
   const { ticker } = useParams();
+  const navigate = useNavigate();
   const { tickerLogoLink, isLoadingTickerLogo } = useTickerLogoLink(ticker);
+
+  useEffect(() => {
+    if (!ticker) {
+      navigate(Page.NotFound);
+    }
+  }, [ticker, navigate]);
 
   return (
     <Container>
-      <InstrumentHeader />
+      <InstrumentHeader ticker={ticker!} />
       <Spacer />
       <p className="text-secondary fw-bold mb-1">{ticker}</p>
       <Row>
@@ -21,11 +30,16 @@ export const Instrument: React.FC = () => {
             {isLoadingTickerLogo ? (
               <Placeholder as={TickerLogo} animation="wave" />
             ) : (
-              <img src={tickerLogoLink} alt={`${ticker} logo`} className="img-fluid rounded-circle w-100 h-100" />
+              tickerLogoLink && (
+                <img src={tickerLogoLink} alt={`${ticker} logo`} className="img-fluid rounded-circle w-100 h-100" />
+              )
             )}
           </TickerLogo>
         </Col>
       </Row>
+      <TickerMovement ticker={ticker!} />
+      <Spacer />
+      <TickerNews ticker={ticker!} />
     </Container>
   )
 }

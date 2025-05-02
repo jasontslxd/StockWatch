@@ -19,3 +19,8 @@ export * from './LogoutModal';
 export * from './CompanySearchModal';
 export * from './InstrumentHeader';
 export * from './CompanySearchResult';
+export * from './TickerMovement';
+export * from './ShareInstrumentModal';
+export * from './TickerNews';
+export * from './TickerNewsItem';
+export * from './TickerNewsItemLoading';

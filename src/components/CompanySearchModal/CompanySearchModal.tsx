@@ -48,7 +48,7 @@ export const CompanySearchModal: React.FC<ISearchModalProps> = ({ showSearchModa
 
   return (
     <Modal centered show={showSearchModal} onHide={() => setShowSearchModal(false)}>
-      <Modal.Header>
+      <Modal.Header closeButton>
         <Modal.Title>Search</Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -58,8 +58,8 @@ export const CompanySearchModal: React.FC<ISearchModalProps> = ({ showSearchModa
         </div>
         <Spacer />
         <ListGroup>
-          {searchResults.map((result) => (
-            <CompanySearchResult result={result} />
+          {searchResults.map((result, idx) => (
+            <CompanySearchResult key={idx} result={result} />
           ))}
         </ListGroup>
       </Modal.Body>

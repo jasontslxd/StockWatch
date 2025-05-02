@@ -1,5 +1,5 @@
 import { Spacer } from "components";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Button, Container, Spinner } from "react-bootstrap";
 import { Link, useNavigate } from "react-router";
 import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
@@ -15,10 +15,10 @@ export const MobileSubmission: React.FC<IMobileSubmissionProps> = ({ flow, setMo
   const auth = getAuth();
   const navigate = useNavigate();
 
-  const onSignInSuccess = () => {
+  const onSignInSuccess = useCallback(() => {
     navigate(Page.VerifyOtp, { state: { flow } });
     setIsLoading(false);
-  }
+  }, [navigate, flow])
 
   useEffect(() => {
     // referencing https://firebase.google.com/docs/auth/web/phone-auth#web invisbile captcha
