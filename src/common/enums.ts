@@ -14,6 +14,7 @@ export enum Page {
   VerifyOtp = '/verify',
   Dashboard = '/dashboard',
   Portfolio = '/portfolio',
+  Instrument = '/instrument/:ticker'
 }
 
 export enum LoginFlow {

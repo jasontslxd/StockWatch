@@ -1,12 +1,12 @@
-import { Container } from "react-bootstrap";
-import { Spacer } from "components";
 import { PropsWithChildren } from "react";
+import { Container } from "react-bootstrap";
 
 export const AppContainer: React.FC<PropsWithChildren> = ({ children }) => {
   return (
-    <Container>
-      <Spacer />
-      {children}
-    </Container>
+    <div className="bg-light vh-100">
+      <Container>
+        {children}
+      </Container>
+    </div>
   );
 };

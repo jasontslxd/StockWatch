@@ -1,6 +1,6 @@
 import { ITickerPerformance } from "common";
 import { Spacer, TickerLogo } from "components";
-import { useTickerLogo } from "hooks";
+import { useTickerLogoLink } from "hooks";
 import { Card, Placeholder } from "react-bootstrap";
 
 interface ITickerCardProps {
@@ -18,17 +18,17 @@ export const TickerCard: React.FC<ITickerCardProps> = ({ tickerPerformance }) =>
   const parsedChangePercentage = isPositive ? `+${change_percentage}` : change_percentage;
   const parsedPrice = `$${price}`
 
-  const { tickerLink, isLoading } = useTickerLogo(ticker);
+  const { tickerLogoLink, isLoadingTickerLogo } = useTickerLogoLink(ticker);
 
   const renderTickerLogo = () => {
-    if (isLoading) {
+    if (isLoadingTickerLogo) {
       return <Placeholder as={TickerLogo} animation="wave"><Placeholder xs={12} className="rounded-circle w-100 h-100" /></Placeholder>
     }
 
-    if (tickerLink) {
+    if (tickerLogoLink) {
       return (
         <TickerLogo>
-          <img src={tickerLink} alt={`${ticker} logo`} className="img-fluid rounded-circle w-100 h-100" />
+          <img src={tickerLogoLink} alt={`${ticker} logo`} className="img-fluid rounded-circle w-100 h-100" />
         </TickerLogo>
       )
     }

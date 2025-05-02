@@ -13,3 +13,8 @@ export * from './OtpInput';
 export * from './OtpSubmission';
 export * from './TickerLogo';
 export * from './FirestoreProvider';
+export * from './Watchlist';
+export * from './TickerCardLoading';
+export * from './LogoutModal';
+export * from './SearchModal';
+export * from './InstrumentHeader';

@@ -1,7 +1,7 @@
-import { Col, Container, Row, Spinner } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import { Link } from "react-router";
 import { useTopGainerLoser } from "hooks";
-import { Spacer, TickerCard } from "components";
+import { Spacer, TickerCard, TickerCardLoading } from "components";
 
 export const GainersLosers: React.FC = () => {
   const { topGainer, topLoser, isLoading: isLoadingTopGainersLosers } = useTopGainerLoser();
@@ -9,9 +9,14 @@ export const GainersLosers: React.FC = () => {
   const renderTopGainersLosers = () => {
     if (isLoadingTopGainersLosers) {
       return (
-        <div className="d-flex justify-content-center align-items-center">
-          <Spinner />
-        </div>
+        <Row>
+          <Col>
+            <TickerCardLoading />
+          </Col>
+          <Col>
+            <TickerCardLoading />
+          </Col>
+        </Row>
       );
     }
     
@@ -28,25 +33,19 @@ export const GainersLosers: React.FC = () => {
   }
 
   return (
-    <div className="bg-light">
-      <Container className="fluid vh-100">
-        <Spacer size="xs" />
-        <Row>
-          <Col>
-            <div className="d-flex justify-content-between align-items-center">
-              <h4 className="fw-bold">Gainers and Losers</h4>
-              <Link to="/gainers-losers" className="text-decoration-none">See all <i className="bi bi-arrow-right" /></Link>
-            </div>
-          </Col>
-        </Row>
-        <Spacer size="sm" />
-        {renderTopGainersLosers()}
-        <Spacer size="sm" />
+    <>
+      <Spacer size="xs" />
+      <Row>
+        <Col>
           <div className="d-flex justify-content-between align-items-center">
-            <h4 className="fw-bold">Your watchlist</h4>
-            <Link to="/watchlist" className="text-decoration-none">See all <i className="bi bi-arrow-right" /></Link>
+            <h4 className="fw-bold">Top Gainers and Losers</h4>
+            <Link to="/gainers-losers" className="text-decoration-none">See all <i className="bi bi-arrow-right" /></Link>
           </div>
-      </Container>
-    </div>
+        </Col>
+      </Row>
+      <Spacer size="sm" />
+      {renderTopGainersLosers()}
+      <Spacer size="sm" />
+    </>
   );
 };

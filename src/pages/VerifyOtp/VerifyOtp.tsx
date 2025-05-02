@@ -1,6 +1,6 @@
 import { Page, LoginFlow } from "common";
 import { LandingBanner, Spacer, OtpInput, OtpSubmission } from "components";
-import { Container } from "react-bootstrap";
+import { Button, Container } from "react-bootstrap";
 import { useLocation, useNavigate } from "react-router";
 import { useState } from "react";
 
@@ -15,7 +15,9 @@ export const VerifyOtp: React.FC = () => {
   return (
     <LandingBanner>
       <Container className="pt-3 ps-3">
-        <i className="bi bi-arrow-90deg-left text-white" onClick={() => navigate(backUrl)} />
+        <Button variant="white" onClick={() => navigate(backUrl)}>
+          <i className="bi bi-arrow-left" />
+        </Button>
       </Container>
       <Spacer size="xxlg" />
       <h1 className="text-center text-white">{titleText} !</h1>
