@@ -16,5 +16,6 @@ export * from './FirestoreProvider';
 export * from './Watchlist';
 export * from './TickerCardLoading';
 export * from './LogoutModal';
-export * from './SearchModal';
+export * from './CompanySearchModal';
 export * from './InstrumentHeader';
+export * from './CompanySearchResult';

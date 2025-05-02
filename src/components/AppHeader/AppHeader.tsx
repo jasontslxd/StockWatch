@@ -1,5 +1,5 @@
 import { Button, Col, Container, Row} from "react-bootstrap";
-import { Spacer, LogoutModal, SearchModal } from "components";
+import { Spacer, LogoutModal, CompanySearchModal } from "components";
 import { useLocation } from "react-router";
 import { Page } from "common";
 import { useState } from "react";
@@ -42,7 +42,7 @@ export const AppHeader: React.FC<IAppHeaderProps> = ({ title }) => {
         <Spacer size="xxlg" />
       </Container>
       <LogoutModal showSettingsModal={showSettingsModal} setShowSettingsModal={setShowSettingsModal} />
-      <SearchModal showSearchModal={showSearchModal} setShowSearchModal={setShowSearchModal} />
+      <CompanySearchModal showSearchModal={showSearchModal} setShowSearchModal={setShowSearchModal} />
     </>
   );
 };

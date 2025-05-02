@@ -28,7 +28,7 @@ export const MobileSubmission: React.FC<IMobileSubmissionProps> = ({ flow, setMo
         onSignInSuccess();
       }
     })
-  }, [])
+  }, [auth, onSignInSuccess])
 
   const redirectUrl = flow === 'signin' ? '/signup' : '/signin';
   const redirectText = flow === 'signin' ? 'Sign Up' : 'Sign In';
