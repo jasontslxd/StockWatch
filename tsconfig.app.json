@@ -27,7 +27,6 @@
       "hooks": ["hooks"],
       "common": ["common"],
       "pages": ["pages"],
-      "mocks": ["mocks"],
       "contexts": ["contexts"]
     }
   },

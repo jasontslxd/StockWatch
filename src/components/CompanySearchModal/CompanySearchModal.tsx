@@ -2,7 +2,6 @@ import { ICompanySearchMatchResponse, ICompanySearchResponse } from "common";
 import { CompanySearchResult, Spacer } from "components";
 import { useRef, useState, useEffect } from "react";
 import { Modal, Button, Form, ListGroup } from "react-bootstrap"
-import { mockCompanySearch } from "mocks";
 
 interface ISearchModalProps {
   showSearchModal: boolean;
@@ -13,17 +12,29 @@ export const CompanySearchModal: React.FC<ISearchModalProps> = ({ showSearchModa
   const searchRef = useRef<HTMLInputElement>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState<ICompanySearchMatchResponse[]>([]);
+  const [isError, setIsError] = useState(false);
 
   const searchCompany = async (query: string) => {
-    if (import.meta.env.PROD) {
-    const url = `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${query}&apikey=MV0T5YUG7KBWWSIR`;
-      const response = await fetch(url);
-      const { bestMatches } = await response.json() as ICompanySearchResponse;
+    let companySearchResponse : ICompanySearchResponse;
+
+    try {
+      if (import.meta.env.PROD) {
+        const url = `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${query}&apikey=MV0T5YUG7KBWWSIR`;
+        const response = await fetch(url);
+        companySearchResponse = await response.json() as ICompanySearchResponse;
+      }
+      else {
+        const url = "https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=tencent&apikey=demo";
+        const response = await fetch(url);
+        companySearchResponse = await response.json() as ICompanySearchResponse;
+      }
+
+      const { bestMatches } = companySearchResponse;
       setSearchResults(bestMatches);
     }
-    else {
-      const { bestMatches } = mockCompanySearch;
-      setSearchResults(bestMatches);
+    catch (error) {
+      console.error(error);
+      setIsError(true);
     }
   };
 
@@ -44,6 +55,7 @@ export const CompanySearchModal: React.FC<ISearchModalProps> = ({ showSearchModa
   const onClearButtonClick = () => {
     setSearchQuery("");
     setSearchResults([]);
+    setIsError(false);
   }
 
   return (
@@ -62,6 +74,9 @@ export const CompanySearchModal: React.FC<ISearchModalProps> = ({ showSearchModa
             <CompanySearchResult key={idx} result={result} />
           ))}
         </ListGroup>
+        {isError && (
+          <p className="text-center">Oh no! Something went wrong loading the search results. Please try again.</p>
+        )}
       </Modal.Body>
     </Modal>
   )

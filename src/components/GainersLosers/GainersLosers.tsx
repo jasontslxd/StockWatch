@@ -1,10 +1,10 @@
-import { Col, Row } from "react-bootstrap";
+import { Button, Col, Row } from "react-bootstrap";
 import { Link } from "react-router";
 import { useTopGainerLoser } from "hooks";
 import { Spacer, TickerCard, TickerCardLoading } from "components";
 
 export const GainersLosers: React.FC = () => {
-  const { topGainer, topLoser, isLoading: isLoadingTopGainersLosers } = useTopGainerLoser();
+  const { topGainer, topLoser, isLoading: isLoadingTopGainersLosers, isError: isErrorTopGainersLosers } = useTopGainerLoser();
 
   const renderTopGainersLosers = () => {
     if (isLoadingTopGainersLosers) {
@@ -20,12 +20,21 @@ export const GainersLosers: React.FC = () => {
       );
     }
     
+    if (isErrorTopGainersLosers) {
+      return (
+        <div className="d-flex flex-column align-items-center">
+          <p className="text-center">Oh no! Something went wrong loading the top gainers and losers. Please try again.</p>
+          <Button variant="primary" onClick={() => window.location.reload()}>Try again</Button>
+        </div>
+      );
+    }
+    
     return (
       <Row>
-        <Col>
+        <Col xs={6}>
           <TickerCard tickerPerformance={topGainer} />
         </Col>
-        <Col>
+        <Col xs={6}>
           <TickerCard tickerPerformance={topLoser} />
         </Col>
       </Row>

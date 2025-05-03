@@ -1,4 +1,4 @@
-import { ITickerPerformance } from "common";
+import { ITickerPerformance, parseChangeAmount, parseChangePercentage } from "common";
 import { Spacer, TickerLogo } from "components";
 import { useTickerLogoLink } from "hooks";
 import { Card, Placeholder } from "react-bootstrap";
@@ -14,8 +14,8 @@ export const TickerCard: React.FC<ITickerCardProps> = ({ tickerPerformance }) =>
   const changePercentageBackgroundColor = isPositive ? 'lightgreen' : 'lightcoral';
   const changePercentageTextColor = isPositive ? 'success' : 'danger';
 
-  const parsedChangeAmount = isPositive ? `+${change_amount}` : change_amount;
-  const parsedChangePercentage = isPositive ? `+${change_percentage}` : change_percentage;
+  const parsedChangeAmount = parseChangeAmount(change_amount);
+  const parsedChangePercentage = parseChangePercentage(change_percentage);
   const parsedPrice = `$${price}`
 
   const { tickerLogoLink, isLoadingTickerLogo } = useTickerLogoLink(ticker);
