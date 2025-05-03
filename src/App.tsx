@@ -1,6 +1,6 @@
 import { AuthProvider, FirestoreProvider, ProtectedRoute } from "components"
 import { Routes, Route } from "react-router"
-import { Dashboard, Landing, Portfolio, SignUp, SignIn, VerifyOtp, Instrument, NotFound } from "pages"
+import { Dashboard, Landing, Portfolio, SignUp, SignIn, VerifyOtp, Instrument, NotFound, InstrumentNews } from "pages"
 import { Page } from "common"
 import { useEffect } from "react"
 import { browserSessionPersistence, getAuth, setPersistence } from "firebase/auth"
@@ -25,6 +25,7 @@ export const App: React.FC = () => {
           <Route path={Page.Dashboard} element={<ProtectedRoute page={<Dashboard />} />} />
           <Route path={Page.Portfolio} element={<ProtectedRoute page={<Portfolio />} />} />
           <Route path={Page.Instrument} element={<Instrument />} />
+          <Route path={Page.News} element={<InstrumentNews />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </AuthProvider>

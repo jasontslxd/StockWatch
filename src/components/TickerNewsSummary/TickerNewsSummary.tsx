@@ -4,11 +4,11 @@ import { useTickerNews } from "hooks";
 import { ListGroup, Button } from "react-bootstrap";
 import { Link } from "react-router"
 
-interface ITickerNewsProps {
+interface ITickerNewsSummaryProps {
   ticker: string;
 }
 
-export const TickerNews = ({ticker}: ITickerNewsProps) => {
+export const TickerNewsSummary = ({ticker}: ITickerNewsSummaryProps) => {
   const { news, isLoading, isError } = useTickerNews(ticker);
 
   const renderTickerNews = () => {
@@ -46,7 +46,7 @@ export const TickerNews = ({ticker}: ITickerNewsProps) => {
 
     return (
       <ListGroup>
-        {feed.slice(0, 3).map((newsItem, idx) => (
+        {feed.slice(0, 5).map((newsItem, idx) => (
           <div key={idx}>  
             <ListGroup.Item className="border-1 rounded" as={Link} to={newsItem.url} target="_blank">
             <TickerNewsItem newsItem={newsItem} />

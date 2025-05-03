@@ -21,6 +21,6 @@ export * from './InstrumentHeader';
 export * from './CompanySearchResult';
 export * from './TickerMovement';
 export * from './ShareInstrumentModal';
-export * from './TickerNews';
+export * from './TickerNewsSummary';
 export * from './TickerNewsItem';
 export * from './TickerNewsItemLoading';

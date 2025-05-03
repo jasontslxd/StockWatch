@@ -68,7 +68,7 @@ export const CompanySearchModal: React.FC<ISearchModalProps> = ({ showSearchModa
           <Form.Control type="text" ref={searchRef} value={searchQuery} onChange={onSearchQueryChange} />
           <Button variant="white" className="ms-2" onClick={onClearButtonClick}><i className="bi bi-x-circle fs-3" /></Button>
         </div>
-        <Spacer />
+        { searchResults.length > 0 && <Spacer />}
         <ListGroup>
           {searchResults.map((result, idx) => (
             <CompanySearchResult key={idx} result={result} />
