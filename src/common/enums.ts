@@ -33,3 +33,8 @@ export enum TickerMovementTimeRange {
   OneYear = '1y',
   AllTime = "All"
 }
+
+export enum TickerTimeSeriesFrequency {
+  Intraday = "intraday",
+  Daily = "daily"
+}

@@ -24,3 +24,4 @@ export * from './ShareInstrumentModal';
 export * from './TickerNewsSummary';
 export * from './TickerNewsItem';
 export * from './TickerNewsItemLoading';
+export * from './TickerTimeSeries';

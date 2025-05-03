@@ -11,7 +11,7 @@ export const useTickerGlobalQuote = (ticker: string) => {
     const fetchGlobalQuote = async () => {
       setIsLoadingGlobalQuote(true);
       let globalQuoteData: ITickerGlobalQuoteApiResponse;
-      const url = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${ticker}&apikey=MV0T5YUG7KBWWSIR`;
+      const url = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${ticker}&apikey=${import.meta.env.VITE_ALPHAVANTAGE_API_KEY}`;
       const demoUrl = "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=IBM&apikey=demo";
 
       try {

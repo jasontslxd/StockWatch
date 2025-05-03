@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from "react-router";
 import { InstrumentHeader, Spacer, TickerMovement, TickerNewsSummary } from "components";
-import { Container } from "react-bootstrap";
+import { Button, Container } from "react-bootstrap";
 import { useEffect } from "react";
 import { Page } from "common";
 
@@ -19,7 +19,11 @@ export const Instrument: React.FC = () => {
     <Container>
       <InstrumentHeader ticker={ticker!} showActions backDestination={Page.Dashboard} />
       <TickerMovement ticker={ticker!} />
-      <Spacer />
+      <Spacer size="sm" />
+      <div>
+        <Button variant="primary w-100 fs-4 fw-bold">Follow</Button>
+      </div>
+      <Spacer size="sm" />
       <TickerNewsSummary ticker={ticker!} />
     </Container>
   )

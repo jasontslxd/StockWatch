@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 export const useTickerNews = (ticker: string, limit: number = 5) => {
   const [news, setNews] = useState<ICompanyNewsApiResponse | null>(null);
-  const newsUrl = `https://www.alphavantage.co/query?function=NEWS_SENTIMENT&tickers=${ticker}&limit=${limit}apikey=MV0T5YUG7KBWWSIR`;
+  const newsUrl = `https://www.alphavantage.co/query?function=NEWS_SENTIMENT&tickers=${ticker}&limit=${limit}apikey=${import.meta.env.VITE_ALPHAVANTAGE_API_KEY}`;
   const demoNewsUrl = "https://www.alphavantage.co/query?function=NEWS_SENTIMENT&tickers=AAPL&apikey=demo";
   const [isLoadingTickerNews, setIsLoadingTickerNews] = useState(false);
   const [isErrorTickerNews, setIsErrorTickerNews] = useState(false);

@@ -133,3 +133,29 @@ export type IFinnhubTickerProfileApiResponse = {
   ticker: string;
   weburl: string;
 }
+
+export type ITickerTimeSeriesApiResponse = {
+  [key: string]: {
+    [key: string]: {
+      "1. open": string;
+      "2. high": string;
+      "3. low": string;
+      "4. close": string;
+      "5. volume": string;
+    }
+  }
+}
+
+export type ITickerPriceData = {
+  date: Date;
+  open: string;
+  high: string;
+  low: string;
+  close: string;
+  volume: string;
+}
+
+export type ITickerChange = {
+  changeValue: number;
+  changePercent: number;
+}

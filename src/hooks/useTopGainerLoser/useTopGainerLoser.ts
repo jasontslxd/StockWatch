@@ -9,7 +9,7 @@ export const useTopGainerLoser = () => {
 
   useEffect(() => {
     const fetchGainersLosers = async () => {
-      const url = "https://www.alphavantage.co/query?function=TOP_GAINERS_LOSERS&apikey=MV0T5YUG7KBWWSIR"
+      const url = "https://www.alphavantage.co/query?function=TOP_GAINERS_LOSERS&apikey=${import.meta.env.VITE_ALPHAVANTAGE_API_KEY}"
       const demoUrl = "https://www.alphavantage.co/query?function=TOP_GAINERS_LOSERS&apikey=demo"
       let gainerLosersData: IGainerLosersApiResponse;
 

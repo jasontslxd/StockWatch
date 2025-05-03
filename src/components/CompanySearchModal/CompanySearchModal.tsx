@@ -19,7 +19,7 @@ export const CompanySearchModal: React.FC<ISearchModalProps> = ({ showSearchModa
 
     try {
       if (import.meta.env.PROD) {
-        const url = `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${query}&apikey=MV0T5YUG7KBWWSIR`;
+        const url = `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${query}&apikey=${import.meta.env.VITE_ALPHAVANTAGE_API_KEY}`;
         const response = await fetch(url);
         companySearchResponse = await response.json() as ICompanySearchApiResponse;
       }
