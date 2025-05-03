@@ -14,10 +14,11 @@ export const Instrument: React.FC = () => {
     }
   }, [ticker, navigate]);
 
+
   return (
     <Container>
-      <InstrumentHeader ticker={ticker!} showActions />
-      <TickerMovement />
+      <InstrumentHeader ticker={ticker!} showActions backDestination={Page.Dashboard} />
+      <TickerMovement ticker={ticker!} />
       <Spacer />
       <TickerNewsSummary ticker={ticker!} />
     </Container>

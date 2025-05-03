@@ -1,5 +1,6 @@
 export * from "./useAuth";
 export * from "./useTopGainerLoser";
 export * from "./useNavigateOnAuth";
-export * from "./useTickerLogo";
+export * from "./useFinnhubTickerProfile";
 export * from "./useTickerNews";
+export * from "./useTickerGlobalQuote";

@@ -1,5 +1,5 @@
 import { Button, Col, Placeholder, Row } from "react-bootstrap";
-import { useAuth, useTickerLogoLink } from "hooks";
+import { useAuth, useFinnhubTickerProfile } from "hooks";
 import { useNavigate } from "react-router";
 import { Page } from "common";
 import { ShareInstrumentModal, Spacer, TickerLogo } from "components";
@@ -8,14 +8,16 @@ import { useState } from "react";
 interface IInstrumentHeaderProps {
   ticker: string;
   showActions?: boolean;
+  backDestination: Page;
 }
 
-export const InstrumentHeader: React.FC<IInstrumentHeaderProps> = ({ ticker, showActions }) => {
+export const InstrumentHeader: React.FC<IInstrumentHeaderProps> = ({ ticker, showActions, backDestination }) => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const [isStarred, setIsStarred] = useState(false);
   const [showShareModal, setShowShareModal] = useState(false);
-  const { tickerLogoLink, isLoadingTickerLogo } = useTickerLogoLink(ticker);
+  const { tickerProfile, isLoadingTickerProfile } = useFinnhubTickerProfile(ticker);
+  const { logo, name } = tickerProfile || {};
 
   const handleStarClick = () => {
     setIsStarred(prevStar => !prevStar);
@@ -27,7 +29,7 @@ export const InstrumentHeader: React.FC<IInstrumentHeaderProps> = ({ ticker, sho
       <Row>
         <Col>
           {user && (
-            <Button variant="white" onClick={() => navigate(Page.Dashboard)}>
+            <Button variant="white" onClick={() => navigate(backDestination.replace(":ticker", ticker))}>
               <i className="bi bi-arrow-left" />
             </Button>
           )}
@@ -52,15 +54,21 @@ export const InstrumentHeader: React.FC<IInstrumentHeaderProps> = ({ ticker, sho
       <p className="text-secondary fw-bold mb-1">{ticker}</p>
       <Row>
         <Col className="d-flex align-items-center">
-          <h1 className="fw-bold">Instrument</h1>
+          {isLoadingTickerProfile ? (
+            <Placeholder as="h1" xs={3}><Placeholder xs={12} /></Placeholder>
+          ) : (
+            <h1 className="fw-bold">{name}</h1>
+          )}
         </Col>
         <Col className="d-flex align-items-center justify-content-end">
           <TickerLogo>
-            {isLoadingTickerLogo ? (
-              <Placeholder as={TickerLogo} animation="wave" />
+            {isLoadingTickerProfile ? (
+              <Placeholder as={TickerLogo} animation="wave">
+                <Placeholder xs={12} className="rounded-circle w-100 h-100" />
+              </Placeholder>
             ) : (
-              tickerLogoLink && (
-                <img src={tickerLogoLink} alt={`${ticker} logo`} className="img-fluid rounded-circle w-100 h-100" />
+              logo && (
+                <img src={logo} alt={`${ticker} logo`} className="img-fluid rounded-circle w-100 h-100" />
               )
             )}
           </TickerLogo>

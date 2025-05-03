@@ -1,4 +1,4 @@
-import { ICompanySearchMatchResponse, ICompanySearchResponse } from "common";
+import { ICompanySearchMatchResponse, ICompanySearchApiResponse } from "common";
 import { CompanySearchResult, Spacer } from "components";
 import { useRef, useState, useEffect } from "react";
 import { Modal, Button, Form, ListGroup } from "react-bootstrap"
@@ -15,18 +15,18 @@ export const CompanySearchModal: React.FC<ISearchModalProps> = ({ showSearchModa
   const [isError, setIsError] = useState(false);
 
   const searchCompany = async (query: string) => {
-    let companySearchResponse : ICompanySearchResponse;
+    let companySearchResponse : ICompanySearchApiResponse;
 
     try {
       if (import.meta.env.PROD) {
         const url = `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${query}&apikey=MV0T5YUG7KBWWSIR`;
         const response = await fetch(url);
-        companySearchResponse = await response.json() as ICompanySearchResponse;
+        companySearchResponse = await response.json() as ICompanySearchApiResponse;
       }
       else {
         const url = "https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=tencent&apikey=demo";
         const response = await fetch(url);
-        companySearchResponse = await response.json() as ICompanySearchResponse;
+        companySearchResponse = await response.json() as ICompanySearchApiResponse;
       }
 
       const { bestMatches } = companySearchResponse;

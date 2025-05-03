@@ -9,10 +9,10 @@ interface ITickerNewsSummaryProps {
 }
 
 export const TickerNewsSummary = ({ticker}: ITickerNewsSummaryProps) => {
-  const { news, isLoading, isError } = useTickerNews(ticker);
+  const { news, isLoadingTickerNews, isErrorTickerNews } = useTickerNews(ticker, 5);
 
   const renderTickerNews = () => {
-    if (isLoading) {
+    if (isLoadingTickerNews) {
       return (
         <ListGroup>
           {[...Array(3)].map((_, idx) => (
@@ -24,7 +24,7 @@ export const TickerNewsSummary = ({ticker}: ITickerNewsSummaryProps) => {
       )
     }
 
-    if (isError) {
+    if (isErrorTickerNews) {
       return (
         <div className="d-flex flex-column align-items-center">
           <Spacer />
@@ -46,12 +46,13 @@ export const TickerNewsSummary = ({ticker}: ITickerNewsSummaryProps) => {
 
     return (
       <ListGroup>
+        {/* slice here to accomodate for demo url */}
         {feed.slice(0, 5).map((newsItem, idx) => (
           <div key={idx}>  
             <ListGroup.Item className="border-1 rounded" as={Link} to={newsItem.url} target="_blank">
-            <TickerNewsItem newsItem={newsItem} />
-          </ListGroup.Item>
-            <Spacer size="xs" />
+              <TickerNewsItem newsItem={newsItem} />
+            </ListGroup.Item>
+            <Spacer size="xxs" />
           </div>
         ))}
       </ListGroup>

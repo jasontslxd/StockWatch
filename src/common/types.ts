@@ -19,7 +19,7 @@ export type ITickerPerformance = {
   volume: string;
 }
 
-export type IGainerLosersResponse = {
+export type IGainerLosersApiResponse = {
   metadata: string,
   last_updated: string
   top_gainers: ITickerPerformance[];
@@ -27,7 +27,7 @@ export type IGainerLosersResponse = {
   most_actively_traded: ITickerPerformance[];
 }
 
-export type ICompanySearchResponse = {
+export type ICompanySearchApiResponse = {
   bestMatches: ICompanySearchMatchResponse[];
 }
 
@@ -55,7 +55,7 @@ export type ICompanySearchMatch = {
   matchScore: string;
 }
 
-export type ICompanyNewsResponse = {
+export type ICompanyNewsApiResponse = {
   items: string;
   sentiment_score_definition: string;
   relevance_score_definition: string;
@@ -88,4 +88,48 @@ export type ITickerSentiment = {
   relevance_score: string;
   ticker_sentiment_score: string;
   ticker_sentiment_label: string;
+}
+
+export type ITickerGlobalQuoteApiResponse = {
+  "Global Quote": {
+    "01. symbol": string;
+    "02. open": string;
+    "03. high": string;
+    "04. low": string;
+    "05. price": string;
+    "06. volume": string;
+    "07. latest trading day": string;
+    "08. previous close": string;
+    "09. change": string;
+    "10. change percent": string;
+  }
+}
+
+export type ITickerGlobalQuote = {
+  symbol: string;
+  open: string;
+  high: string;
+  low: string;
+  price: string;
+  volume: string;
+  latestTradingDay: string;
+  previousClose: string;
+  change: string;
+  changePercent: string;
+}
+
+export type IFinnhubTickerProfileApiResponse = {
+  country: string;
+  currency: string;
+  estimateCurrency: string;
+  exchange: string;
+  finnhubIndustry: string;
+  ipo: string;
+  logo: string;
+  marketCapitalization: number;
+  name: string;
+  phone: string;
+  shareOutstanding: number;
+  ticker: string;
+  weburl: string;
 }

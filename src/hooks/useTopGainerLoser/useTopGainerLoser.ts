@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { IGainerLosersResponse, ITickerPerformance } from "common";
+import { IGainerLosersApiResponse, ITickerPerformance } from "common";
 
 export const useTopGainerLoser = () => {
   const [topGainer, setTopGainer] = useState<ITickerPerformance>({} as ITickerPerformance);
@@ -11,7 +11,7 @@ export const useTopGainerLoser = () => {
     const fetchGainersLosers = async () => {
       const url = "https://www.alphavantage.co/query?function=TOP_GAINERS_LOSERS&apikey=MV0T5YUG7KBWWSIR"
       const demoUrl = "https://www.alphavantage.co/query?function=TOP_GAINERS_LOSERS&apikey=demo"
-      let gainerLosersData: IGainerLosersResponse;
+      let gainerLosersData: IGainerLosersApiResponse;
 
       try {
         if (import.meta.env.PROD) {
