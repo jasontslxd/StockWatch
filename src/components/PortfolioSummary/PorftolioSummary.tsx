@@ -1,10 +1,10 @@
-import { Spacer, PortfolioBreakdown } from "components";
+import { Spacer, PortfolioItem } from "components";
 import { useAuth } from "hooks";
 import { getPortfolioSummary, getPortfolioBreakdown } from "firestore";
 import { useState, useEffect, useContext } from "react";
 import { FirestoreContext } from "contexts";
 import { IPortfolioItem } from "common";
-import { Spinner } from "react-bootstrap";
+import { ListGroup, Spinner } from "react-bootstrap";
 import { Placeholder } from "react-bootstrap";
 
 export const PortfolioSummary: React.FC = () => {
@@ -12,7 +12,8 @@ export const PortfolioSummary: React.FC = () => {
   const { firestore } = useContext(FirestoreContext);
   const [totalValue, setTotalValue] = useState<number>(0);
   const [portfolioBreakdown, setPortfolioBreakdown] = useState<IPortfolioItem[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [portfolioPnL, setPortfolioPnL] = useState(0);
 
   useEffect(() => {
     const fetchPortfolioSummary = async () => {
@@ -29,18 +30,42 @@ export const PortfolioSummary: React.FC = () => {
     fetchPortfolioSummary();
   }, [user]);
 
+  const renderPortfolioPnL = () => {
+    if (isLoading) {
+      return <Placeholder className="ms-2" as="p" animation="glow" xs={2}><Placeholder xs={12} /></Placeholder>
+    }
+
+    const noChange = portfolioPnL === 0;
+    const isPositive = portfolioPnL > 0;
+    const changePercentageBackgroundColor = noChange ? 'lightgray' : isPositive ? 'lightgreen' : 'lightcoral';
+    const changePercentageTextColor = noChange ? 'secondary' : isPositive ? 'success' : 'danger';
+
+    return <h3 className="fw-bold">P&L: <span style={{backgroundColor: changePercentageBackgroundColor}} className={`fw-bold text-${changePercentageTextColor} rounded-1 p-1`}>{`$${portfolioPnL}`}</span></h3>
+  }
+
   return (
     <div>
       <Spacer size="xs" />
       <h2 className="fw-bold d-flex">Total Value: {isLoading ? <Placeholder className="ms-2" as="p" animation="glow" xs={2}><Placeholder xs={12} /></Placeholder> : `$${totalValue}`}</h2>
+      {renderPortfolioPnL()}
       <Spacer size="xs" />
       <h4>Portfolio Breakdown</h4>
       {isLoading ? (
         <div className="d-flex justify-content-center align-items-center">
+          <Spacer size="xxlg" />
           <Spinner animation="border" />
         </div>
       ) : (
-        <PortfolioBreakdown portfolioBreakdown={portfolioBreakdown} />
+        <ListGroup>
+          {portfolioBreakdown.map((item) => {
+            return (
+              <>
+                <PortfolioItem portfolioItem={item} setPortfolioPnL={setPortfolioPnL} />
+                <Spacer size="xs" />
+              </>
+            );
+          })}
+        </ListGroup>
       )}
     </div>
   );

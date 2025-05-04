@@ -88,7 +88,7 @@ export const GainersLosers: React.FC = () => {
           </div>
         </Col>
       </Row>
-      <Spacer size="sm" />
+      <Spacer size="xxs" />
       {renderTopGainersLosers(true)}
       <Spacer size="sm" />
       {renderTopGainersLosersModal()}

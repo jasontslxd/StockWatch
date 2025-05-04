@@ -27,5 +27,5 @@ export * from './TickerNewsItemLoading';
 export * from './TickerTimeSeries';
 export * from './PurchaseModal';
 export * from './PortfolioSummary';
-export * from './PortfolioBreakdown';
 export * from './PortfolioItem';
+export * from './WatchlistItem';

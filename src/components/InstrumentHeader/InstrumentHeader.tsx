@@ -9,19 +9,17 @@ interface IInstrumentHeaderProps {
   ticker: string;
   showActions?: boolean;
   backDestination: Page;
+  isStarred: boolean;
+  setIsStarred: React.Dispatch<React.SetStateAction<boolean>>;
+  handleStarClick: () => void;
 }
 
-export const InstrumentHeader: React.FC<IInstrumentHeaderProps> = ({ ticker, showActions, backDestination }) => {
+export const InstrumentHeader: React.FC<IInstrumentHeaderProps> = ({ ticker, showActions, backDestination, isStarred, handleStarClick }) => {
   const { user } = useAuth();
   const navigate = useNavigate();
-  const [isStarred, setIsStarred] = useState(false);
   const [showShareModal, setShowShareModal] = useState(false);
   const { tickerProfile, isLoadingTickerProfile } = useFinnhubTickerProfile(ticker);
   const { logo, name } = tickerProfile || {};
-
-  const handleStarClick = () => {
-    setIsStarred(prevStar => !prevStar);
-  }
 
   return (
     <>
@@ -57,7 +55,7 @@ export const InstrumentHeader: React.FC<IInstrumentHeaderProps> = ({ ticker, sho
           {isLoadingTickerProfile ? (
             <Placeholder as="h1" xs={3}><Placeholder xs={12} /></Placeholder>
           ) : (
-            <h1 className="fw-bold">{name}</h1>
+            name && <h1 className="fw-bold">{name}</h1>
           )}
         </Col>
         <Col className="d-flex align-items-center justify-content-end">

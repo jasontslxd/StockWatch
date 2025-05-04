@@ -3,7 +3,7 @@ import { Container } from "react-bootstrap";
 
 export const AppContainer: React.FC<PropsWithChildren> = ({ children }) => {
   return (
-    <div className="bg-light vh-100">
+    <div className="bg-light" style={{ minHeight: '80vh' }}>
       <Container>
         {children}
       </Container>
