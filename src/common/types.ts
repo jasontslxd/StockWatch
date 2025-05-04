@@ -156,6 +156,18 @@ export type ITickerPriceData = {
 }
 
 export type ITickerChange = {
-  changeValue: number;
-  changePercent: number;
+  changeValue: string;
+  changePercent: string;
+}
+
+export type ITickerPriceDataPoint = {
+  date: Date;
+  close: number;
+}
+
+export type IPortfolioItem = {
+  ticker: string;
+  quantity: number;
+  averagePrice: number;
+  totalCost: number;
 }

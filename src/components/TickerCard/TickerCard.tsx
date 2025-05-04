@@ -1,4 +1,4 @@
-import { ITickerPerformance, Page, parseChangeAmount, parseChangePercentage } from "common";
+import { ITickerPerformance, Page, formatChangeAmount, formatChangePercentage } from "common";
 import { Spacer, TickerLogo } from "components";
 import { useFinnhubTickerProfile } from "hooks";
 import { Card, Placeholder } from "react-bootstrap";
@@ -16,8 +16,8 @@ export const TickerCard: React.FC<ITickerCardProps> = ({ tickerPerformance }) =>
   const changePercentageBackgroundColor = isPositive ? 'lightgreen' : 'lightcoral';
   const changePercentageTextColor = isPositive ? 'success' : 'danger';
 
-  const parsedChangeAmount = parseChangeAmount(change_amount);
-  const parsedChangePercentage = parseChangePercentage(change_percentage);
+  const parsedChangeAmount = formatChangeAmount(change_amount);
+  const parsedChangePercentage = formatChangePercentage(change_percentage);
   const parsedPrice = `$${price}`
 
   const { tickerProfile, isLoadingTickerProfile, isErrorTickerProfile } = useFinnhubTickerProfile(ticker);

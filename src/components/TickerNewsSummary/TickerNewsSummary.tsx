@@ -20,12 +20,12 @@ export const TickerNewsSummary = ({ticker}: ITickerNewsSummaryProps) => {
       return (
         <ListGroup>
           {[...Array(numberToRender)].map((_, idx) => (
-            <>
-              <ListGroup.Item key={idx} className="border-1 rounded">
+            <div key={idx}>
+              <ListGroup.Item className="border-1 rounded">
                 <TickerNewsItemLoading />
               </ListGroup.Item>
               <Spacer size="xxs" />
-            </>
+            </div>
           ))}
         </ListGroup>
       )

@@ -13,8 +13,8 @@ export const GainersLosers: React.FC = () => {
     if (isLoadingTopGainersLosers) {
       return (
         Array.from({ length: numberToRender }).map((_, index) => (
-          <>
-            <Row key={index}>
+          <div key={index}>
+            <Row>
               <Col>
                 <TickerCardLoading />
               </Col>
@@ -23,7 +23,7 @@ export const GainersLosers: React.FC = () => {
               </Col>
             </Row>
             <Spacer size="xxs" />
-          </>
+          </div>
         ))
       );
     }
@@ -48,8 +48,8 @@ export const GainersLosers: React.FC = () => {
           </Col>
         </Row>
         {Array.from({ length: numberToRender }).map((_, index) => (
-          <>
-            <Row key={index}>
+          <div key={index}>
+            <Row>
               <Col xs={6}>
                 <TickerCard tickerPerformance={topGainers[index]} />
               </Col>
@@ -58,7 +58,7 @@ export const GainersLosers: React.FC = () => {
               </Col>
             </Row>
             <Spacer size="xxs" />
-          </>
+          </div>
         ))}
       </>
     );

@@ -1,10 +1,11 @@
-import { AppContainer, AppHeader, AppNavigation } from "components"
+import { AppContainer, AppHeader, AppNavigation, PortfolioSummary } from "components"
 
 export const Portfolio: React.FC = () => {
   return (
     <>
+      <AppHeader title="Portfolio" />
       <AppContainer>
-        <AppHeader title="Portfolio" />
+        <PortfolioSummary />
       </AppContainer>
       <AppNavigation />
     </>

@@ -11,6 +11,7 @@ export default defineConfig({
       common: "/src/common",
       pages: "/src/pages",
       contexts: "/src/contexts",
+      firestore: "/src/firestore",
     },
   },
 })

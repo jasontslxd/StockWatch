@@ -1,4 +1,4 @@
-import { ITickerPriceData, TickerMovementTimeRange } from "common";
+import { ITickerPriceData, ITickerPriceDataPoint, TickerMovementTimeRange } from "common";
 import { isSameDay, subDays } from "date-fns";
 
 export const isValidPhoneNumber = (phoneNumber: string) => {
@@ -9,7 +9,7 @@ export const isValidOtp = (otp: string) => {
   return otp.length === 6 && otp.match(/^[0-9]+$/) !== null;
 }
 
-export const parseChangeAmount = (value: string) => {
+export const formatChangeAmount= (value: string) => {
   // Convert to number and handle invalid inputs
   const num = parseFloat(value);
   if (isNaN(num)) return value;
@@ -22,7 +22,7 @@ export const parseChangeAmount = (value: string) => {
   return `${sign}$${formattedNumber}`;
 }
 
-export const parseChangePercentage = (value: string) => {
+export const formatChangePercentage = (value: string) => {
   // Remove any existing % sign and convert to number
   const cleanValue = value.replace('%', '');
   const num = parseFloat(cleanValue);
@@ -36,7 +36,7 @@ export const parseChangePercentage = (value: string) => {
   return `${sign}${formattedNumber}%`;
 }
 
-export const mapTickerHistoricalPriceToPoints = (tickerHistoricalPrice: ITickerPriceData[], selectedTimeRange: TickerMovementTimeRange) => {
+export const mapTickerHistoricalPriceToPoints = (tickerHistoricalPrice: ITickerPriceData[], selectedTimeRange: TickerMovementTimeRange): ITickerPriceDataPoint[] => {
   const currentDate = new Date();
   let filteredData: ITickerPriceData[];
 

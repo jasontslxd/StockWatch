@@ -1,14 +1,17 @@
-import { parseChangeAmount, parseChangePercentage, TickerMovementTimeRange } from "common";
+import { formatChangeAmount, formatChangePercentage, ITickerGlobalQuote, TickerMovementTimeRange } from "common";
+import { mapTickerHistoricalPriceToPoints } from "common";
 import { Spacer, TickerTimeSeries } from "components";
 import { useTickerGlobalQuote, useTickerHistoricalPrice } from "hooks";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Placeholder } from "react-bootstrap";
+import { getChangeWithinTimeRange } from "./TickerMovement.services";
 
 interface ITickerMovementProps {
   ticker: string;
+  setGlobalQuote: React.Dispatch<React.SetStateAction<ITickerGlobalQuote | null>>;
 }
 
-export const TickerMovement: React.FC<ITickerMovementProps> = ({ ticker }) => {
+export const TickerMovement: React.FC<ITickerMovementProps> = ({ ticker, setGlobalQuote }) => {
   const [selectedTimeRange, setSelectedTimeRange] = useState<TickerMovementTimeRange>(TickerMovementTimeRange.OneDay);
   const { globalQuote, isLoadingGlobalQuote, isErrorGlobalQuote } = useTickerGlobalQuote(ticker!);
   const { tickerHistoricalPrice, isLoadingTickerHistoricalPrice, isErrorTickerHistoricalPrice } = useTickerHistoricalPrice({
@@ -16,8 +19,14 @@ export const TickerMovement: React.FC<ITickerMovementProps> = ({ ticker }) => {
     timeRange: selectedTimeRange
   });
 
+  useEffect(() => {
+    if (globalQuote) {
+      setGlobalQuote(globalQuote);
+    }
+  }, [globalQuote, setGlobalQuote]);
+
   const renderTickerSummary = () => {
-    if (isLoadingGlobalQuote) {
+    if (isLoadingGlobalQuote || isLoadingTickerHistoricalPrice) {
       return (
         <>
           <div className="d-flex">
@@ -35,15 +44,20 @@ export const TickerMovement: React.FC<ITickerMovementProps> = ({ ticker }) => {
     }
 
     const { price, change: dailyChange, changePercent: dailyChangePercent } = globalQuote;
-    const isPositive = dailyChangePercent[0] !== '-';
+    const historicalData = mapTickerHistoricalPriceToPoints(tickerHistoricalPrice, selectedTimeRange);
+    const { changeValue: historicalChangeValue, changePercent: historicalChangePercent } = getChangeWithinTimeRange(historicalData);
+
+    const displayedChange = selectedTimeRange === TickerMovementTimeRange.OneDay ? dailyChange : historicalChangeValue;
+    const displayedChangePercent = selectedTimeRange === TickerMovementTimeRange.OneDay ? dailyChangePercent : historicalChangePercent;
+    const isPositive = displayedChange[0] !== '-';
     const changePercentageBackgroundColor = isPositive ? 'lightgreen' : 'lightcoral';
     const changePercentageTextColor = isPositive ? 'success' : 'danger';
 
     return (
       <div className="d-flex align-items-center">
         <h4 className="m-0 me-2 fw-bold">${price}</h4>
-        <p style={{backgroundColor: changePercentageBackgroundColor}} className={`fw-bold text-${changePercentageTextColor} rounded-1 p-1 m-0 me-2`}>{parseChangePercentage(dailyChangePercent)}</p>
-        <p className="text-secondary m-0">{parseChangeAmount(dailyChange)}</p>
+        <p style={{backgroundColor: changePercentageBackgroundColor}} className={`fw-bold text-${changePercentageTextColor} rounded-1 p-1 m-0 me-2`}>{formatChangePercentage(displayedChangePercent)}</p>
+        <p className="text-secondary m-0">{formatChangeAmount(displayedChange)}</p>
       </div>
     )
   }

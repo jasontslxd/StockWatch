@@ -1,13 +1,13 @@
-import { ITickerChange } from "common";
+import { ITickerChange, ITickerPriceDataPoint } from "common";
 
-export const getChangeWithinTimeRange = (closingPrices: number[]): ITickerChange => {
-  const firstPrice = closingPrices[0];
-  const lastPrice = closingPrices[closingPrices.length - 1];
+export const getChangeWithinTimeRange = (closingPrices: ITickerPriceDataPoint[]): ITickerChange => {
+  const firstPrice = closingPrices[0].close;
+  const lastPrice = closingPrices[closingPrices.length - 1].close;
   const changeValue = lastPrice - firstPrice;
   const changePercent = ((lastPrice - firstPrice) / firstPrice) * 100;
 
   return {
-    changeValue,
-    changePercent
+    changeValue: changeValue.toString(),
+    changePercent: changePercent.toString()
   }
 }

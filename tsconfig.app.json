@@ -27,7 +27,8 @@
       "hooks": ["hooks"],
       "common": ["common"],
       "pages": ["pages"],
-      "contexts": ["contexts"]
+      "contexts": ["contexts"],
+      "firestore": ["firestore"]
     }
   },
   "include": ["src"]

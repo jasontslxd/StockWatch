@@ -25,3 +25,7 @@ export * from './TickerNewsSummary';
 export * from './TickerNewsItem';
 export * from './TickerNewsItemLoading';
 export * from './TickerTimeSeries';
+export * from './PurchaseModal';
+export * from './PortfolioSummary';
+export * from './PortfolioBreakdown';
+export * from './PortfolioItem';
