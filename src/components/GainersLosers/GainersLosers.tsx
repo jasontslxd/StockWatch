@@ -1,22 +1,30 @@
-import { Button, Col, Row } from "react-bootstrap";
-import { Link } from "react-router";
+import { Button, Col, Modal, Row } from "react-bootstrap";
 import { useTopGainerLoser } from "hooks";
 import { Spacer, TickerCard, TickerCardLoading } from "components";
+import { useState } from "react";
 
 export const GainersLosers: React.FC = () => {
-  const { topGainer, topLoser, isLoading: isLoadingTopGainersLosers, isError: isErrorTopGainersLosers } = useTopGainerLoser();
+  const { topGainers, topLosers, isLoading: isLoadingTopGainersLosers, isError: isErrorTopGainersLosers } = useTopGainerLoser();
+  const [showTopGainersLosersModal, setShowTopGainersLosersModal] = useState(false);
 
-  const renderTopGainersLosers = () => {
+  const renderTopGainersLosers = (renderOnlyTop: boolean) => {
+    const numberToRender = renderOnlyTop ? 1 : 5;
+
     if (isLoadingTopGainersLosers) {
       return (
-        <Row>
-          <Col>
-            <TickerCardLoading />
-          </Col>
-          <Col>
-            <TickerCardLoading />
-          </Col>
-        </Row>
+        Array.from({ length: numberToRender }).map((_, index) => (
+          <>
+            <Row key={index}>
+              <Col>
+                <TickerCardLoading />
+              </Col>
+              <Col>
+                <TickerCardLoading />
+              </Col>
+            </Row>
+            <Spacer size="xxs" />
+          </>
+        ))
       );
     }
     
@@ -30,14 +38,42 @@ export const GainersLosers: React.FC = () => {
     }
     
     return (
-      <Row>
-        <Col xs={6}>
-          <TickerCard tickerPerformance={topGainer} />
+      <>
+        <Row>
+          <Col>
+            <h4 className="fw-bold">Top Gainers</h4>
         </Col>
-        <Col xs={6}>
-          <TickerCard tickerPerformance={topLoser} />
-        </Col>
-      </Row>
+        <Col>
+          <h4 className="fw-bold">Top Losers</h4>
+          </Col>
+        </Row>
+        {Array.from({ length: numberToRender }).map((_, index) => (
+          <>
+            <Row key={index}>
+              <Col xs={6}>
+                <TickerCard tickerPerformance={topGainers[index]} />
+              </Col>
+              <Col xs={6}>
+                <TickerCard tickerPerformance={topLosers[index]} />
+              </Col>
+            </Row>
+            <Spacer size="xxs" />
+          </>
+        ))}
+      </>
+    );
+  }
+
+  const renderTopGainersLosersModal = () => {
+    return (
+      <Modal centered show={showTopGainersLosersModal} onHide={() => setShowTopGainersLosersModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Top Gainers and Losers</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {renderTopGainersLosers(false)}
+        </Modal.Body>
+      </Modal>
     );
   }
 
@@ -48,13 +84,14 @@ export const GainersLosers: React.FC = () => {
         <Col>
           <div className="d-flex justify-content-between align-items-center">
             <h4 className="fw-bold">Top Gainers and Losers</h4>
-            <Link to="/gainers-losers" className="text-decoration-none">See all <i className="bi bi-arrow-right" /></Link>
+            <Button variant="link" className="text-decoration-none" onClick={() => setShowTopGainersLosersModal(true)}>See all <i className="bi bi-arrow-right" /></Button>
           </div>
         </Col>
       </Row>
       <Spacer size="sm" />
-      {renderTopGainersLosers()}
+      {renderTopGainersLosers(true)}
       <Spacer size="sm" />
+      {renderTopGainersLosersModal()}
     </>
   );
 };

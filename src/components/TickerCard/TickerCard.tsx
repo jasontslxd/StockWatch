@@ -1,7 +1,8 @@
-import { ITickerPerformance, parseChangeAmount, parseChangePercentage } from "common";
+import { ITickerPerformance, Page, parseChangeAmount, parseChangePercentage } from "common";
 import { Spacer, TickerLogo } from "components";
 import { useFinnhubTickerProfile } from "hooks";
 import { Card, Placeholder } from "react-bootstrap";
+import { useNavigate } from "react-router";
 
 interface ITickerCardProps {
   tickerPerformance: ITickerPerformance;
@@ -9,6 +10,7 @@ interface ITickerCardProps {
 
 export const TickerCard: React.FC<ITickerCardProps> = ({ tickerPerformance }) => {
   const { ticker, price, change_percentage, change_amount } = tickerPerformance;
+  const navigate = useNavigate();
 
   const isPositive = change_percentage[0] !== '-';
   const changePercentageBackgroundColor = isPositive ? 'lightgreen' : 'lightcoral';
@@ -42,7 +44,7 @@ export const TickerCard: React.FC<ITickerCardProps> = ({ tickerPerformance }) =>
   }
     
   return (
-    <Card className="bg-white">
+    <Card className="bg-white" onClick={() => navigate(Page.Instrument.replace(':ticker', ticker))}>
       <Card.Body>
         <Card.Title>
           {renderTickerLogo()}

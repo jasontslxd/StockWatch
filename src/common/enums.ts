@@ -16,7 +16,6 @@ export enum Page {
   Portfolio = '/portfolio',
   Instrument = '/instrument/:ticker',
   NotFound = '/notfound',
-  News = '/instrument/:ticker/news'
 }
 
 export enum LoginFlow {

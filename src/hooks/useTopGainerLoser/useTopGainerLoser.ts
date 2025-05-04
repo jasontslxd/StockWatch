@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { IGainerLosersApiResponse, ITickerPerformance } from "common";
 
 export const useTopGainerLoser = () => {
-  const [topGainer, setTopGainer] = useState<ITickerPerformance>({} as ITickerPerformance);
-  const [topLoser, setTopLoser] = useState<ITickerPerformance>({} as ITickerPerformance);
+  const [topGainers, setTopGainers] = useState<ITickerPerformance[]>([]);
+  const [topLosers, setTopLosers] = useState<ITickerPerformance[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
 
@@ -23,11 +23,11 @@ export const useTopGainerLoser = () => {
           gainerLosersData = await response.json();
         }
 
-        const topGainer = gainerLosersData.top_gainers[0];
-        const topLoser = gainerLosersData.top_losers[0];
+        const topGainers = gainerLosersData.top_gainers;
+        const topLosers = gainerLosersData.top_losers;
 
-        setTopGainer(topGainer);
-        setTopLoser(topLoser);
+        setTopGainers(topGainers);
+        setTopLosers(topLosers);
         setIsLoading(false);
       }
       catch (error) {
@@ -38,5 +38,5 @@ export const useTopGainerLoser = () => {
     fetchGainersLosers();
   }, []);
 
-  return { topGainer, topLoser, isLoading, isError };
+  return { topGainers, topLosers, isLoading, isError };
 };
