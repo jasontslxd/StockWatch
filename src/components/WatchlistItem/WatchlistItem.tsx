@@ -2,7 +2,7 @@ import { mapTickerHistoricalPriceToPoints, Page, TickerMovementTimeRange, getCha
 import { Col, ListGroup, Placeholder, Row } from "react-bootstrap"
 import { Link } from "react-router";
 import { useTickerHistoricalPrice, useTickerGlobalQuote } from "hooks";
-import { TickerMovementChart, ChangePercentage } from "components";
+import { TickerLogo, TickerMovementChart, ChangePercentage } from "components";
 
 interface IWatchlistItemProps {
   ticker: string;
@@ -44,7 +44,8 @@ export const WatchlistItem: React.FC<IWatchlistItemProps> = ({ ticker }) => {
       <Row>
         <Col xs={6} className="d-flex align-items-center">
           <i className="bi bi-star-fill text-warning me-2" />
-          <div className="d-flex align-items-center flex-column">
+          <TickerLogo ticker={ticker} className="me-2" />
+          <div className="d-flex flex-column">
             <p className="m-0">{ticker}</p>
             <ChangePercentage changePercentage={changePercent} />
           </div>

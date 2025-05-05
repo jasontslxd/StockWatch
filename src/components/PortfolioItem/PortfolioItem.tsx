@@ -13,7 +13,7 @@ export const PortfolioItem: React.FC<IPortfolioItemProps> = ({ portfolioItem, se
   const { ticker, quantity, averagePrice, totalCost } = portfolioItem;
   const { data: globalQuote, isLoading: isLoadingGlobalQuote } = useTickerGlobalQuote(ticker!);
   const { price: currentPrice } = globalQuote || {};
-  const { data: tickerProfile, isLoading: isLoadingTickerProfile, isError: isErrorTickerProfile } = useFinnhubTickerProfile(ticker);
+  const { data: tickerProfile } = useFinnhubTickerProfile(ticker);
   const { name: tickerName } = tickerProfile || {};
 
   const unitMovement = currentPrice ? (parseFloat(currentPrice) - averagePrice) : 0;
@@ -27,32 +27,11 @@ export const PortfolioItem: React.FC<IPortfolioItemProps> = ({ portfolioItem, se
     };
   }, [pnl, setPortfolioPnL]);
 
-  const renderTickerLogo = () => {
-    if (isLoadingTickerProfile) {
-      return <Placeholder as={TickerLogo} animation="wave"><Placeholder xs={12} className="rounded-circle w-100 h-100" /></Placeholder>
-    }
-
-    if (isErrorTickerProfile || !tickerProfile || !tickerProfile.logo) {
-      return (
-        <TickerLogo>
-          <span className="border border-2 border-secondary rounded-circle w-100 h-100 d-flex justify-content-center align-items-center">{ticker.charAt(0)}</span>
-        </TickerLogo>
-      )
-    }
-
-    const { logo } = tickerProfile;
-    return (
-      <TickerLogo>
-        <img src={logo} alt={`${ticker} logo`} className="img-fluid rounded-circle w-100 h-100" />
-      </TickerLogo>
-    )
-  }
-
   if (isLoadingGlobalQuote) {
     return <ListGroup.Item key={ticker} className="rounded-2">
       <Row>
         <Col>
-          <Placeholder as={TickerLogo} animation="wave"><Placeholder xs={12} className="rounded-circle w-100 h-100" /></Placeholder>
+          <TickerLogo ticker={ticker} renderLoading />
         </Col>
         <Col>
           <Placeholder as="p" animation="wave"><Placeholder xs={12} /></Placeholder>
@@ -65,7 +44,7 @@ export const PortfolioItem: React.FC<IPortfolioItemProps> = ({ portfolioItem, se
     <ListGroup.Item key={ticker} className="rounded-2">
       <Row>
         <Col xs={5} className="d-flex flex-column justify-content-center">
-          {renderTickerLogo()}
+          <TickerLogo ticker={ticker} />
           <p className="m-0">{ticker}</p>
           <p className="m-0">{tickerName}</p>
         </Col>

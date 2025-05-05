@@ -19,7 +19,7 @@ export const useTickerHistoricalPrice = ({ ticker, timeRange }: IUseTickerHistor
   const demoUrl = frequency === TickerTimeSeriesFrequency.Intraday ? demoIntradayUrl : demoDailyUrl;
 
   const { isPending, error, data } = useQuery({
-    queryKey: ['tickerHistoricalPrice', ticker, timeRange],
+    queryKey: ['tickerHistoricalPrice', ticker, frequency],
     queryFn: (): Promise<ITickerTimeSeriesApiResponse> =>
       fetch(import.meta.env.PROD ? url : demoUrl).then((res) =>
         res.json(),

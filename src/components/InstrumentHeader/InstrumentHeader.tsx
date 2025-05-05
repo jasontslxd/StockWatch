@@ -19,7 +19,7 @@ export const InstrumentHeader: React.FC<IInstrumentHeaderProps> = ({ ticker, sho
   const navigate = useNavigate();
   const [showShareModal, setShowShareModal] = useState(false);
   const { data: tickerProfile, isLoading: isLoadingTickerProfile } = useFinnhubTickerProfile(ticker);
-  const { logo, name } = tickerProfile || {};
+  const { name } = tickerProfile || {};
 
   return (
     <>
@@ -59,17 +59,7 @@ export const InstrumentHeader: React.FC<IInstrumentHeaderProps> = ({ ticker, sho
           )}
         </Col>
         <Col className="d-flex align-items-center justify-content-end">
-          <TickerLogo>
-            {isLoadingTickerProfile ? (
-              <Placeholder as={TickerLogo} animation="wave">
-                <Placeholder xs={12} className="rounded-circle w-100 h-100" />
-              </Placeholder>
-            ) : (
-              logo && (
-                <img src={logo} alt={`${ticker} logo`} className="img-fluid rounded-circle w-100 h-100" />
-              )
-            )}
-          </TickerLogo>
+          <TickerLogo ticker={ticker} />
         </Col>
       </Row>
     </>
