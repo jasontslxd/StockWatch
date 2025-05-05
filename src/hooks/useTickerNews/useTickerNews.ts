@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { ICompanyNews, IReactQueryResponse } from "common";
 
 export const useTickerNews = (ticker: string, limit: number = 20): IReactQueryResponse<ICompanyNews> => {
-  const newsUrl = `https://www.alphavantage.co/query?function=NEWS_SENTIMENT&tickers=${ticker}&limit=${limit}apikey=${import.meta.env.VITE_ALPHAVANTAGE_API_KEY}`;
+  const newsUrl = `https://www.alphavantage.co/query?function=NEWS_SENTIMENT&tickers=${ticker}&limit=${limit}&apikey=${import.meta.env.VITE_ALPHAVANTAGE_API_KEY}`;
   const demoNewsUrl = "https://www.alphavantage.co/query?function=NEWS_SENTIMENT&tickers=AAPL&apikey=demo";
 
   const { isPending, error, data } = useQuery({

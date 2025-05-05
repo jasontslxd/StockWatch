@@ -54,10 +54,10 @@ export const PortfolioSummary: React.FC = () => {
         <ListGroup>
           {portfolioBreakdown.map((item) => {
             return (
-              <>
+              <div key={item.ticker}>
                 <PortfolioItem portfolioItem={item} setPortfolioPnL={setPortfolioPnL} />
                 <Spacer size="xs" />
-              </>
+              </div>
             );
           })}
         </ListGroup>
