@@ -1,15 +1,15 @@
-import { Link } from "react-router";
 import { Spacer, WatchlistItem } from "components";
 import { useContext, useEffect, useState } from "react";
 import { FirestoreContext } from "contexts";
 import { getWatchList } from "firestore";
 import { useAuth } from "hooks";
-import { ListGroup } from "react-bootstrap";
+import { Button, ListGroup, Modal } from "react-bootstrap";
 
 export const Watchlist: React.FC = () => {
   const { firestore } = useContext(FirestoreContext);
   const { user } = useAuth();
   const [watchlist, setWatchlist] = useState<string[]>([]);
+  const [showWatchlistModal, setShowWatchlistModal] = useState(false);
 
   useEffect(() => {
     const fetchWatchlist = async () => {
@@ -22,7 +22,7 @@ export const Watchlist: React.FC = () => {
     fetchWatchlist();
   }, [firestore, user])
 
-  const renderWatchlist = () => {
+  const renderWatchlist = (renderAll: boolean) => {
     if (watchlist.length === 0) {
       return (
         <>
@@ -34,7 +34,7 @@ export const Watchlist: React.FC = () => {
     
     return (
       <ListGroup>
-        {watchlist.map((ticker) => (
+        {watchlist.slice(0, renderAll ? watchlist.length : 4).map((ticker) => (
           <div key={ticker}>
             <Spacer size="xxs" />
             <WatchlistItem ticker={ticker} />
@@ -44,13 +44,27 @@ export const Watchlist: React.FC = () => {
     )
   }
 
+  const renderWatchlistModal = () => {
+    return (
+      <Modal centered show={showWatchlistModal} onHide={() => setShowWatchlistModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Your watchlist</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {renderWatchlist(true)}
+        </Modal.Body>
+      </Modal>
+    );
+  }
+
   return (
     <>
       <div className="d-flex justify-content-between align-items-center">
         <h4 className="fw-bold">Your watchlist</h4>
-        <Link to="/watchlist" className="text-decoration-none">See all <i className="bi bi-arrow-right" /></Link>
+        <Button variant="link" className="text-decoration-none" onClick={() => setShowWatchlistModal(true)}>See all <i className="bi bi-arrow-right" /></Button>
       </div>
-      {renderWatchlist()}
+      {renderWatchlist(false)}
+      {renderWatchlistModal()}
     </>
   )
 }

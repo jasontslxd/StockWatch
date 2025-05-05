@@ -45,7 +45,7 @@ export const PortfolioItem: React.FC<IPortfolioItemProps> = ({ portfolioItem, se
       <Row>
         <Col xs={5} className="d-flex flex-column justify-content-center">
           <TickerLogo ticker={ticker} />
-          <p className="m-0">{ticker}</p>
+          <p className="fw-bold m-0">{ticker}</p>
           <p className="m-0">{tickerName}</p>
         </Col>
         <Col xs={7} className="d-flex flex-column justify-content-center text-end">

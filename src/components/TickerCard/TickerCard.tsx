@@ -16,7 +16,7 @@ export const TickerCard: React.FC<ITickerCardProps> = ({ tickerPerformance }) =>
 
   return (
     <Card className="bg-white" onClick={() => navigate(Page.Instrument.replace(':ticker', ticker))}>
-      <Card.Body>
+      <Card.Body className="p-2">
         <Card.Title>
           <TickerLogo ticker={ticker} />
         </Card.Title>
