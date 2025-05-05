@@ -1,5 +1,5 @@
 import { IPortfolioItem } from "common";
-import { TickerLogo } from "components";
+import { ChangePercentage, TickerLogo } from "components";
 import { useFinnhubTickerProfile, useTickerGlobalQuote } from "hooks";
 import { useEffect } from "react";
 import { Col, ListGroup, Placeholder, Row } from "react-bootstrap";
@@ -17,10 +17,6 @@ export const PortfolioItem: React.FC<IPortfolioItemProps> = ({ portfolioItem, se
   const { name: tickerName } = tickerProfile || {};
 
   const unitMovement = currentPrice ? (parseFloat(currentPrice) - averagePrice) : 0;
-  const noChange = unitMovement === 0;
-  const isPositive = unitMovement > 0;
-  const changePercentageBackgroundColor = noChange ? 'lightgray' : isPositive ? 'lightgreen' : 'lightcoral';
-  const changePercentageTextColor = noChange ? 'secondary' : isPositive ? 'success' : 'danger';
   const pnl = unitMovement * quantity;
 
   useEffect(() => {
@@ -78,7 +74,7 @@ export const PortfolioItem: React.FC<IPortfolioItemProps> = ({ portfolioItem, se
           <p className="m-0">Latest price: ${currentPrice}</p>
           <p className="m-0">Current value: ${totalCost.toFixed(4)}</p>
           <p className="m-0">P&L:{' '}
-            <span style={{backgroundColor: changePercentageBackgroundColor}} className={`fw-bold text-${changePercentageTextColor} rounded-1 p-1`}>${pnl.toFixed(2)}</span>
+            <ChangePercentage changePercentage={pnl.toFixed(2)} fillBackground />
           </p>
         </Col>
       </Row>

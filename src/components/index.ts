@@ -29,3 +29,5 @@ export * from './PurchaseModal';
 export * from './PortfolioSummary';
 export * from './PortfolioItem';
 export * from './WatchlistItem';
+export * from './TickerMovementChart';
+export * from './ChangePercentage';

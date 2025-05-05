@@ -1,4 +1,4 @@
-import { Spacer, PortfolioItem } from "components";
+import { Spacer, PortfolioItem, ChangePercentage } from "components";
 import { useAuth } from "hooks";
 import { getPortfolioSummary, getPortfolioBreakdown } from "firestore";
 import { useState, useEffect, useContext } from "react";
@@ -28,19 +28,14 @@ export const PortfolioSummary: React.FC = () => {
     };
 
     fetchPortfolioSummary();
-  }, [user]);
+  }, [user, firestore]);
 
   const renderPortfolioPnL = () => {
     if (isLoading) {
       return <Placeholder className="ms-2" as="p" animation="glow" xs={2}><Placeholder xs={12} /></Placeholder>
     }
 
-    const noChange = portfolioPnL === 0;
-    const isPositive = portfolioPnL > 0;
-    const changePercentageBackgroundColor = noChange ? 'lightgray' : isPositive ? 'lightgreen' : 'lightcoral';
-    const changePercentageTextColor = noChange ? 'secondary' : isPositive ? 'success' : 'danger';
-
-    return <h3 className="fw-bold">P&L: <span style={{backgroundColor: changePercentageBackgroundColor}} className={`fw-bold text-${changePercentageTextColor} rounded-1 p-1`}>{`$${portfolioPnL}`}</span></h3>
+    return <h3 className="fw-bold">P&L: <ChangePercentage changePercentage={portfolioPnL.toFixed(2)} fillBackground /></h3>
   }
 
   return (

@@ -1,10 +1,9 @@
-import { formatChangeAmount, formatChangePercentage, ITickerGlobalQuote, TickerMovementTimeRange } from "common";
-import { mapTickerHistoricalPriceToPoints } from "common";
-import { Spacer, TickerTimeSeries } from "components";
+import { formatChangeAmount, ITickerGlobalQuote, TickerMovementTimeRange } from "common";
+import { mapTickerHistoricalPriceToPoints, getChangeWithinTimeRange } from "common";
+import { Spacer, TickerTimeSeries, ChangePercentage } from "components";
 import { useTickerGlobalQuote, useTickerHistoricalPrice } from "hooks";
 import { useEffect, useState } from "react";
 import { Button, Placeholder } from "react-bootstrap";
-import { getChangeWithinTimeRange } from "./TickerMovement.services";
 
 interface ITickerMovementProps {
   ticker: string;
@@ -49,14 +48,11 @@ export const TickerMovement: React.FC<ITickerMovementProps> = ({ ticker, setGlob
 
     const displayedChange = selectedTimeRange === TickerMovementTimeRange.OneDay ? dailyChange : historicalChangeValue;
     const displayedChangePercent = selectedTimeRange === TickerMovementTimeRange.OneDay ? dailyChangePercent : historicalChangePercent;
-    const isPositive = displayedChange[0] !== '-';
-    const changePercentageBackgroundColor = isPositive ? 'lightgreen' : 'lightcoral';
-    const changePercentageTextColor = isPositive ? 'success' : 'danger';
 
     return (
       <div className="d-flex align-items-center">
         <h4 className="m-0 me-2 fw-bold">${price}</h4>
-        <p style={{backgroundColor: changePercentageBackgroundColor}} className={`fw-bold text-${changePercentageTextColor} rounded-1 p-1 m-0 me-2`}>{formatChangePercentage(displayedChangePercent)}</p>
+        <p className="m-0 me-2"><ChangePercentage changePercentage={displayedChangePercent} fillBackground /></p>
         <p className="text-secondary m-0">{formatChangeAmount(displayedChange)}</p>
       </div>
     )

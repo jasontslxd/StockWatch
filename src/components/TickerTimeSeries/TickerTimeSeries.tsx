@@ -1,8 +1,6 @@
 import { ITickerPriceData, TickerMovementTimeRange, mapTickerHistoricalPriceToPoints } from "common";
 import { Placeholder, Spinner } from "react-bootstrap";
-import { formatXAxis } from "./TickerTimeSeries.service";
-import { LineChart, Line, CartesianGrid, XAxis, YAxis, ResponsiveContainer, Tooltip } from 'recharts';
-import { format } from 'date-fns';
+import { TickerMovementChart } from "components";
 
 interface ITickerTimeSeriesProps {
   selectedTimeRange: TickerMovementTimeRange;
@@ -31,36 +29,8 @@ export const TickerTimeSeries: React.FC<ITickerTimeSeriesProps> = ({ selectedTim
   }
 
   const data = mapTickerHistoricalPriceToPoints(tickerHistoricalPrice, selectedTimeRange)
-  const closingPrices = data.map(d => d.close);
-
-  const minPrice = Math.min(...closingPrices);
-  const maxPrice = Math.max(...closingPrices);
-  const padding = (maxPrice - minPrice) * 0.1;
 
   return (
-    <ResponsiveContainer width="100%" height={300}>
-      <LineChart data={data}>
-        <CartesianGrid strokeDasharray="3 3" />
-        <Line 
-          type="monotone" 
-          dataKey="close" 
-          stroke={data[0].close > data[data.length-1].close ? "red" : "green"} 
-          dot={false} 
-        />
-        <XAxis 
-          dataKey="date" 
-          tickFormatter={(value: Date) => formatXAxis(value, selectedTimeRange)}
-          tick={{ fontSize: 12 }}
-        />
-        <YAxis 
-          domain={[minPrice - padding, maxPrice + padding]}
-          tickFormatter={(value) => `$${value.toFixed(2)}`}
-        />
-        <Tooltip 
-          formatter={(value: number) => [`$${value.toFixed(2)}`, 'Price']}
-          labelFormatter={(date: Date) => format(date, 'MMM d, yyyy')}
-        />
-      </LineChart>
-    </ResponsiveContainer>
+    <TickerMovementChart data={data} selectedTimeRange={selectedTimeRange} />
   )
 }

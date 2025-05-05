@@ -1,5 +1,5 @@
-import { ITickerPerformance, Page, formatChangeAmount, formatChangePercentage } from "common";
-import { Spacer, TickerLogo } from "components";
+import { ITickerPerformance, Page, formatChangeAmount } from "common";
+import { Spacer, TickerLogo, ChangePercentage } from "components";
 import { useFinnhubTickerProfile } from "hooks";
 import { Card, Placeholder } from "react-bootstrap";
 import { useNavigate } from "react-router";
@@ -12,12 +12,7 @@ export const TickerCard: React.FC<ITickerCardProps> = ({ tickerPerformance }) =>
   const { ticker, price, change_percentage, change_amount } = tickerPerformance;
   const navigate = useNavigate();
 
-  const isPositive = change_percentage[0] !== '-';
-  const changePercentageBackgroundColor = isPositive ? 'lightgreen' : 'lightcoral';
-  const changePercentageTextColor = isPositive ? 'success' : 'danger';
-
   const parsedChangeAmount = formatChangeAmount(change_amount);
-  const parsedChangePercentage = formatChangePercentage(change_percentage);
   const parsedPrice = `$${price}`
 
   const { tickerProfile, isLoadingTickerProfile, isErrorTickerProfile } = useFinnhubTickerProfile(ticker);
@@ -57,7 +52,7 @@ export const TickerCard: React.FC<ITickerCardProps> = ({ tickerPerformance }) =>
         </Card.Text>
         <Spacer size="xxs" />
         <Card.Text>
-          <span style={{backgroundColor: changePercentageBackgroundColor}} className={`fw-bold text-${changePercentageTextColor} rounded-1 p-1`}>{parsedChangePercentage}</span>
+          <ChangePercentage changePercentage={change_percentage} fillBackground />
           <span className="ms-2 text-secondary">{parsedChangeAmount}</span>
         </Card.Text>
       </Card.Body>

@@ -1,4 +1,4 @@
-import { ITickerPriceData, ITickerPriceDataPoint, TickerMovementTimeRange } from "common";
+import { ITickerChange, ITickerPriceData, ITickerPriceDataPoint, TickerMovementTimeRange } from "common";
 import { isSameDay, subDays } from "date-fns";
 
 export const isValidPhoneNumber = (phoneNumber: string) => {
@@ -95,4 +95,16 @@ export const mapTickerHistoricalPriceToPoints = (tickerHistoricalPrice: ITickerP
     close: parseFloat(point.close),
     date: point.date
   }));
+}
+
+export const getChangeWithinTimeRange = (closingPrices: ITickerPriceDataPoint[]): ITickerChange => {
+  const firstPrice = closingPrices[0].close;
+  const lastPrice = closingPrices[closingPrices.length - 1].close;
+  const changeValue = lastPrice - firstPrice;
+  const changePercent = ((lastPrice - firstPrice) / firstPrice) * 100;
+
+  return {
+    changeValue: changeValue.toString(),
+    changePercent: changePercent.toString()
+  }
 }

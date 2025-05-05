@@ -35,10 +35,10 @@ export const Watchlist: React.FC = () => {
     return (
       <ListGroup>
         {watchlist.map((ticker) => (
-          <>
+          <div key={ticker}>
             <Spacer size="xxs" />
-            <WatchlistItem key={ticker} ticker={ticker} />
-          </>
+            <WatchlistItem ticker={ticker} />
+          </div>
         ))}
       </ListGroup>
     )
