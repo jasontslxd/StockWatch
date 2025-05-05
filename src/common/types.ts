@@ -27,6 +27,11 @@ export type IGainerLosersApiResponse = {
   most_actively_traded: ITickerPerformance[];
 }
 
+export type IGainerLosers = {
+  topGainers: ITickerPerformance[];
+  topLosers: ITickerPerformance[];
+}
+
 export type ICompanySearchApiResponse = {
   bestMatches: ICompanySearchMatchResponse[];
 }
@@ -55,7 +60,7 @@ export type ICompanySearchMatch = {
   matchScore: string;
 }
 
-export type ICompanyNewsApiResponse = {
+export type ICompanyNews = {
   items: string;
   sentiment_score_definition: string;
   relevance_score_definition: string;
@@ -170,4 +175,10 @@ export type IPortfolioItem = {
   quantity: number;
   averagePrice: number;
   totalCost: number;
+}
+
+export type IReactQueryResponse<T> = {
+  data: T;
+  isLoading: boolean;
+  isError: boolean;
 }

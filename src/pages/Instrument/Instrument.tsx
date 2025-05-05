@@ -2,8 +2,8 @@ import { useNavigate, useParams } from "react-router";
 import { InstrumentHeader, PurchaseModal, Spacer, TickerMovement, TickerNewsSummary } from "components";
 import { Button, Container } from "react-bootstrap";
 import { useContext, useEffect, useState } from "react";
-import { ITickerGlobalQuote, Page } from "common";
-import { useAuth } from "hooks";
+import { Page } from "common";
+import { useAuth, useTickerGlobalQuote } from "hooks";
 import { addTickerToWatchlist, getWatchList } from "firestore";
 import { removeTickerFromWatchlist } from "firestore";
 import { FirestoreContext } from "contexts";
@@ -13,9 +13,9 @@ export const Instrument: React.FC = () => {
   const { ticker } = useParams();
   const navigate = useNavigate();
   const [showPurchaseModal, setShowPurchaseModal] = useState(false);
-  const [globalQuote, setGlobalQuote] = useState<ITickerGlobalQuote | null>(null);
   const [isStarred, setIsStarred] = useState(false);
   const { firestore } = useContext(FirestoreContext);
+  const { data: globalQuote, isLoading: isLoadingGlobalQuote, isError: isErrorGlobalQuote } = useTickerGlobalQuote(ticker);
 
   useEffect(() => {
     if (!ticker) {
@@ -61,7 +61,7 @@ export const Instrument: React.FC = () => {
   return (
     <Container>
       <InstrumentHeader ticker={ticker!} showActions backDestination={Page.Dashboard} isStarred={isStarred} setIsStarred={setIsStarred} handleStarClick={handleStarOrFollowClick} />
-      <TickerMovement ticker={ticker!} setGlobalQuote={setGlobalQuote} />
+      <TickerMovement ticker={ticker!} globalQuote={globalQuote} isLoadingGlobalQuote={isLoadingGlobalQuote} isErrorGlobalQuote={isErrorGlobalQuote} />
       <Spacer size="sm" />
       { user && (
         <div>

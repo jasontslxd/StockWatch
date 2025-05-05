@@ -4,6 +4,7 @@ import { Dashboard, Landing, Portfolio, SignUp, SignIn, VerifyOtp, Instrument, N
 import { Page } from "common"
 import { useEffect } from "react"
 import { browserSessionPersistence, getAuth, setPersistence } from "firebase/auth"
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 
 export const App: React.FC = () => {
   useEffect(() => {
@@ -14,19 +15,23 @@ export const App: React.FC = () => {
     setAuthPersistence();
   }, []);
 
+  const queryClient = new QueryClient();
+
   return (
     <FirestoreProvider>
       <AuthProvider>
-        <Routes>
-          <Route path={Page.Landing} element={<Landing />} />
-          <Route path={Page.SignUp} element={<SignUp />} />
-          <Route path={Page.SignIn} element={<SignIn />} />
-          <Route path={Page.VerifyOtp} element={<VerifyOtp />} />
-          <Route path={Page.Dashboard} element={<ProtectedRoute page={<Dashboard />} />} />
-          <Route path={Page.Portfolio} element={<ProtectedRoute page={<Portfolio />} />} />
-          <Route path={Page.Instrument} element={<Instrument />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <QueryClientProvider client={queryClient}>
+          <Routes>
+            <Route path={Page.Landing} element={<Landing />} />
+            <Route path={Page.SignUp} element={<SignUp />} />
+            <Route path={Page.SignIn} element={<SignIn />} />
+            <Route path={Page.VerifyOtp} element={<VerifyOtp />} />
+            <Route path={Page.Dashboard} element={<ProtectedRoute page={<Dashboard />} />} />
+            <Route path={Page.Portfolio} element={<ProtectedRoute page={<Portfolio />} />} />
+            <Route path={Page.Instrument} element={<Instrument />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </QueryClientProvider>
       </AuthProvider>
     </FirestoreProvider>
   )

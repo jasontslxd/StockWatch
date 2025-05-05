@@ -13,6 +13,7 @@
     "test": "vitest run --coverage"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.75.2",
     "bootstrap": "^5.3.5",
     "date-fns": "^4.1.0",
     "firebase": "^11.6.1",

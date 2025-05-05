@@ -18,7 +18,7 @@ export const InstrumentHeader: React.FC<IInstrumentHeaderProps> = ({ ticker, sho
   const { user } = useAuth();
   const navigate = useNavigate();
   const [showShareModal, setShowShareModal] = useState(false);
-  const { tickerProfile, isLoadingTickerProfile } = useFinnhubTickerProfile(ticker);
+  const { data: tickerProfile, isLoading: isLoadingTickerProfile } = useFinnhubTickerProfile(ticker);
   const { logo, name } = tickerProfile || {};
 
   return (

@@ -1,38 +1,37 @@
-import { ICompanyNewsApiResponse } from "common";
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { ICompanyNews, IReactQueryResponse } from "common";
 
-export const useTickerNews = (ticker: string, limit: number = 20) => {
-  const [news, setNews] = useState<ICompanyNewsApiResponse | null>(null);
+export const useTickerNews = (ticker: string, limit: number = 20): IReactQueryResponse<ICompanyNews> => {
   const newsUrl = `https://www.alphavantage.co/query?function=NEWS_SENTIMENT&tickers=${ticker}&limit=${limit}apikey=${import.meta.env.VITE_ALPHAVANTAGE_API_KEY}`;
   const demoNewsUrl = "https://www.alphavantage.co/query?function=NEWS_SENTIMENT&tickers=AAPL&apikey=demo";
-  const [isLoadingTickerNews, setIsLoadingTickerNews] = useState(false);
-  const [isErrorTickerNews, setIsErrorTickerNews] = useState(false);
 
-  useEffect(() => {
-    const fetchNews = async () => {
-      setIsLoadingTickerNews(true);
-      try {
-        if (import.meta.env.PROD) {
-          const response = await fetch(newsUrl);
-          const news = await response.json();
-          setNews(news);
-        }
-        else {
-          const response = await fetch(demoNewsUrl);
-          const news = await response.json()
-          setNews(news);
-        }
-      }
-      catch (error) {
-        console.error(error);
-        setIsErrorTickerNews(true);
-      }
-      finally {
-        setIsLoadingTickerNews(false);
-      }
+  const { isPending, error, data } = useQuery({
+    queryKey: ['tickerNews', ticker, limit],
+    queryFn: (): Promise<ICompanyNews> =>
+      fetch(import.meta.env.PROD ? newsUrl : demoNewsUrl).then((res) =>
+        res.json(),
+      ),
+  })
+
+  if (isPending) {
+    return {
+      data: {} as ICompanyNews,
+      isLoading: true,
+      isError: false,
     }
-    fetchNews();
-  }, [ticker, newsUrl]);
+  }
 
-  return { news, isLoadingTickerNews, isErrorTickerNews };
+  if (error) {
+    return {
+      data: {} as ICompanyNews,
+      isLoading: false,
+      isError: true,
+    }
+  }
+
+  return {
+    data: data,
+    isLoading: false,
+    isError: false,
+  }
 }

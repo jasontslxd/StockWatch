@@ -10,7 +10,7 @@ interface ITickerNewsSummaryProps {
 
 export const TickerNewsSummary = ({ticker}: ITickerNewsSummaryProps) => {
   const numberOfNewsToFetch = 20;
-  const { news, isLoadingTickerNews, isErrorTickerNews } = useTickerNews(ticker, numberOfNewsToFetch);
+  const { data: news, isLoading: isLoadingTickerNews, isError: isErrorTickerNews } = useTickerNews(ticker, numberOfNewsToFetch);
   const [showTickerNewsModal, setShowTickerNewsModal] = useState(false);
 
   const renderTickerNewsSummary = (renderAll: boolean) => {

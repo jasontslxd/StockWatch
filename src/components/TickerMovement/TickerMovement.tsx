@@ -1,28 +1,24 @@
 import { formatChangeAmount, ITickerGlobalQuote, TickerMovementTimeRange } from "common";
 import { mapTickerHistoricalPriceToPoints, getChangeWithinTimeRange } from "common";
 import { Spacer, TickerTimeSeries, ChangePercentage } from "components";
-import { useTickerGlobalQuote, useTickerHistoricalPrice } from "hooks";
-import { useEffect, useState } from "react";
+import { useTickerHistoricalPrice } from "hooks";
+import { useState } from "react";
 import { Button, Placeholder } from "react-bootstrap";
 
 interface ITickerMovementProps {
   ticker: string;
-  setGlobalQuote: React.Dispatch<React.SetStateAction<ITickerGlobalQuote | null>>;
+  globalQuote: ITickerGlobalQuote | null;
+  isLoadingGlobalQuote: boolean;
+  isErrorGlobalQuote: boolean;
 }
 
-export const TickerMovement: React.FC<ITickerMovementProps> = ({ ticker, setGlobalQuote }) => {
+export const TickerMovement: React.FC<ITickerMovementProps> = ({ ticker, globalQuote, isLoadingGlobalQuote, isErrorGlobalQuote }) => {
   const [selectedTimeRange, setSelectedTimeRange] = useState<TickerMovementTimeRange>(TickerMovementTimeRange.OneDay);
-  const { globalQuote, isLoadingGlobalQuote, isErrorGlobalQuote } = useTickerGlobalQuote(ticker!);
-  const { tickerHistoricalPrice, isLoadingTickerHistoricalPrice, isErrorTickerHistoricalPrice } = useTickerHistoricalPrice({
+  const { data: tickerHistoricalPrice, isLoading: isLoadingTickerHistoricalPrice, isError: isErrorTickerHistoricalPrice } = useTickerHistoricalPrice({
     ticker,
     timeRange: selectedTimeRange
   });
 
-  useEffect(() => {
-    if (globalQuote) {
-      setGlobalQuote(globalQuote);
-    }
-  }, [globalQuote, setGlobalQuote]);
 
   const renderTickerSummary = () => {
     if (isLoadingGlobalQuote || isLoadingTickerHistoricalPrice) {
@@ -43,7 +39,7 @@ export const TickerMovement: React.FC<ITickerMovementProps> = ({ ticker, setGlob
     }
 
     const { price, change: dailyChange, changePercent: dailyChangePercent } = globalQuote;
-    const historicalData = mapTickerHistoricalPriceToPoints(tickerHistoricalPrice, selectedTimeRange);
+    const historicalData = mapTickerHistoricalPriceToPoints(tickerHistoricalPrice!, selectedTimeRange);
     const { changeValue: historicalChangeValue, changePercent: historicalChangePercent } = getChangeWithinTimeRange(historicalData);
 
     const displayedChange = selectedTimeRange === TickerMovementTimeRange.OneDay ? dailyChange : historicalChangeValue;

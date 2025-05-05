@@ -1,42 +1,39 @@
-import { useEffect, useState } from "react";
-import { IGainerLosersApiResponse, ITickerPerformance } from "common";
+import { useQuery } from "@tanstack/react-query";
+import { IGainerLosersApiResponse, IGainerLosers, IReactQueryResponse } from "common";
 
-export const useTopGainerLoser = () => {
-  const [topGainers, setTopGainers] = useState<ITickerPerformance[]>([]);
-  const [topLosers, setTopLosers] = useState<ITickerPerformance[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isError, setIsError] = useState(false);
+export const useTopGainerLoser = (): IReactQueryResponse<IGainerLosers> => {
+  const url = `https://www.alphavantage.co/query?function=TOP_GAINERS_LOSERS&apikey=${import.meta.env.VITE_ALPHAVANTAGE_API_KEY}`
+  const demoUrl = "https://www.alphavantage.co/query?function=TOP_GAINERS_LOSERS&apikey=demo"
 
-  useEffect(() => {
-    const fetchGainersLosers = async () => {
-      const url = "https://www.alphavantage.co/query?function=TOP_GAINERS_LOSERS&apikey=${import.meta.env.VITE_ALPHAVANTAGE_API_KEY}"
-      const demoUrl = "https://www.alphavantage.co/query?function=TOP_GAINERS_LOSERS&apikey=demo"
-      let gainerLosersData: IGainerLosersApiResponse;
+  const { isPending, error, data } = useQuery({
+    queryKey: ['topGainersLosers'],
+    queryFn: (): Promise<IGainerLosersApiResponse> =>
+      fetch(import.meta.env.PROD ? url : demoUrl).then((res) =>
+        res.json(),
+      ),
+  })
 
-      try {
-        if (import.meta.env.PROD) {
-          const response = await fetch(url);
-          gainerLosersData = await response.json();
-        }
-        else {
-          const response = await fetch(demoUrl);
-          gainerLosersData = await response.json();
-        }
+  if (isPending) {
+    return {
+      data: { topGainers: [], topLosers: [] },
+      isLoading: true,
+      isError: false,
+    }
+  }
 
-        const topGainers = gainerLosersData.top_gainers;
-        const topLosers = gainerLosersData.top_losers;
+  if (error) {
+    return {
+      data: { topGainers: [], topLosers: [] },
+      isLoading: false,
+      isError: true,
+    }
+  }
 
-        setTopGainers(topGainers);
-        setTopLosers(topLosers);
-        setIsLoading(false);
-      }
-      catch (error) {
-        console.error(error);
-        setIsError(true);
-      }
-    };
-    fetchGainersLosers();
-  }, []);
+  const { top_gainers: topGainers, top_losers: topLosers } = data;
 
-  return { topGainers, topLosers, isLoading, isError };
+  return {
+    data: { topGainers, topLosers },
+    isLoading: false,
+    isError: false,
+  }
 };

@@ -15,7 +15,7 @@ export const TickerCard: React.FC<ITickerCardProps> = ({ tickerPerformance }) =>
   const parsedChangeAmount = formatChangeAmount(change_amount);
   const parsedPrice = `$${price}`
 
-  const { tickerProfile, isLoadingTickerProfile, isErrorTickerProfile } = useFinnhubTickerProfile(ticker);
+  const { data: tickerProfile, isLoading: isLoadingTickerProfile, isError: isErrorTickerProfile } = useFinnhubTickerProfile(ticker);
 
   const renderTickerLogo = () => {
     if (isLoadingTickerProfile) {

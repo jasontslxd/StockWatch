@@ -11,9 +11,9 @@ interface IPortfolioItemProps {
 
 export const PortfolioItem: React.FC<IPortfolioItemProps> = ({ portfolioItem, setPortfolioPnL }) => {
   const { ticker, quantity, averagePrice, totalCost } = portfolioItem;
-  const { globalQuote, isLoadingGlobalQuote } = useTickerGlobalQuote(ticker!);
+  const { data: globalQuote, isLoading: isLoadingGlobalQuote } = useTickerGlobalQuote(ticker!);
   const { price: currentPrice } = globalQuote || {};
-  const { tickerProfile, isLoadingTickerProfile, isErrorTickerProfile } = useFinnhubTickerProfile(ticker);
+  const { data: tickerProfile, isLoading: isLoadingTickerProfile, isError: isErrorTickerProfile } = useFinnhubTickerProfile(ticker);
   const { name: tickerName } = tickerProfile || {};
 
   const unitMovement = currentPrice ? (parseFloat(currentPrice) - averagePrice) : 0;

@@ -4,7 +4,7 @@ import { Spacer, TickerCard, TickerCardLoading } from "components";
 import { useState } from "react";
 
 export const GainersLosers: React.FC = () => {
-  const { topGainers, topLosers, isLoading: isLoadingTopGainersLosers, isError: isErrorTopGainersLosers } = useTopGainerLoser();
+  const { data: { topGainers, topLosers }, isLoading: isLoadingTopGainersLosers, isError: isErrorTopGainersLosers } = useTopGainerLoser();
   const [showTopGainersLosersModal, setShowTopGainersLosersModal] = useState(false);
 
   const renderTopGainersLosers = (renderOnlyTop: boolean) => {

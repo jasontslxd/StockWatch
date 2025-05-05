@@ -9,8 +9,8 @@ interface IWatchlistItemProps {
 }
 
 export const WatchlistItem: React.FC<IWatchlistItemProps> = ({ ticker }) => {
-  const { tickerHistoricalPrice, isLoadingTickerHistoricalPrice, isErrorTickerHistoricalPrice } = useTickerHistoricalPrice({ ticker, timeRange: TickerMovementTimeRange.OneDay });
-  const { globalQuote, isLoadingGlobalQuote, isErrorGlobalQuote } = useTickerGlobalQuote(ticker);
+  const { data: tickerHistoricalPrice, isLoading: isLoadingTickerHistoricalPrice, isError: isErrorTickerHistoricalPrice } = useTickerHistoricalPrice({ ticker, timeRange: TickerMovementTimeRange.OneDay });
+  const { data: globalQuote, isLoading: isLoadingGlobalQuote, isError: isErrorGlobalQuote } = useTickerGlobalQuote(ticker);
   const historicalData = mapTickerHistoricalPriceToPoints(tickerHistoricalPrice, TickerMovementTimeRange.OneDay);
 
   if (isLoadingTickerHistoricalPrice || isLoadingGlobalQuote || historicalData.length === 0 || !globalQuote) {
