@@ -1,1 +1,1 @@
-export * from "./TickerMovementChart";
+export * from './TickerMovementChart';

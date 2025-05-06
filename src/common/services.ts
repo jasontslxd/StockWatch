@@ -1,26 +1,31 @@
-import { ITickerChange, ITickerPriceData, ITickerPriceDataPoint, TickerMovementTimeRange } from "common";
-import { isSameDay, subDays } from "date-fns";
+import {
+  ITickerChange,
+  ITickerPriceData,
+  ITickerPriceDataPoint,
+  TickerMovementTimeRange,
+} from 'common';
+import { isSameDay, subDays } from 'date-fns';
 
 export const isValidPhoneNumber = (phoneNumber: string) => {
   return phoneNumber.length === 8 && phoneNumber.match(/^[0-9]+$/) !== null;
-}
+};
 
 export const isValidOtp = (otp: string) => {
   return otp.length === 6 && otp.match(/^[0-9]+$/) !== null;
-}
+};
 
-export const formatChangeAmount= (value: string) => {
+export const formatChangeAmount = (value: string) => {
   // Convert to number and handle invalid inputs
   const num = parseFloat(value);
   if (isNaN(num)) return value;
 
   // Format to 2 decimal places
   const formattedNumber = Math.abs(num).toFixed(2);
-  
+
   // Add sign and dollar symbol
   const sign = num >= 0 ? '+' : '-';
   return `${sign}$${formattedNumber}`;
-}
+};
 
 export const formatChangePercentage = (value: string) => {
   // Remove any existing % sign and convert to number
@@ -30,13 +35,16 @@ export const formatChangePercentage = (value: string) => {
 
   // Format to 2 decimal places
   const formattedNumber = Math.abs(num).toFixed(2);
-  
+
   // Add sign and percentage symbol
   const sign = num >= 0 ? '+' : '-';
   return `${sign}${formattedNumber}%`;
-}
+};
 
-export const mapTickerHistoricalPriceToPoints = (tickerHistoricalPrice: ITickerPriceData[], selectedTimeRange: TickerMovementTimeRange): ITickerPriceDataPoint[] => {
+export const mapTickerHistoricalPriceToPoints = (
+  tickerHistoricalPrice: ITickerPriceData[],
+  selectedTimeRange: TickerMovementTimeRange,
+): ITickerPriceDataPoint[] => {
   const currentDate = new Date();
   let filteredData: ITickerPriceData[];
 
@@ -44,44 +52,49 @@ export const mapTickerHistoricalPriceToPoints = (tickerHistoricalPrice: ITickerP
     case TickerMovementTimeRange.OneDay: {
       // For OneDay, get the last trading day's data
       const lastTradingDay = tickerHistoricalPrice
-        .filter(price => price.date <= currentDate)
+        .filter((price) => price.date <= currentDate)
         .sort((a, b) => b.date.getTime() - a.date.getTime())[0]?.date;
-      
+
       if (!lastTradingDay) return [];
-      
-      filteredData = tickerHistoricalPrice.filter(price => 
-        isSameDay(price.date, lastTradingDay)
+
+      filteredData = tickerHistoricalPrice.filter((price) =>
+        isSameDay(price.date, lastTradingDay),
       );
       break;
     }
 
     case TickerMovementTimeRange.FiveDays:
-      filteredData = tickerHistoricalPrice.filter(price => 
-        price.date >= subDays(currentDate, 5) && price.date <= currentDate
+      filteredData = tickerHistoricalPrice.filter(
+        (price) =>
+          price.date >= subDays(currentDate, 5) && price.date <= currentDate,
       );
       break;
 
     case TickerMovementTimeRange.ThirtyDays:
-      filteredData = tickerHistoricalPrice.filter(price => 
-        price.date >= subDays(currentDate, 30) && price.date <= currentDate
+      filteredData = tickerHistoricalPrice.filter(
+        (price) =>
+          price.date >= subDays(currentDate, 30) && price.date <= currentDate,
       );
       break;
 
     case TickerMovementTimeRange.NinetyDays:
-      filteredData = tickerHistoricalPrice.filter(price => 
-        price.date >= subDays(currentDate, 90) && price.date <= currentDate
+      filteredData = tickerHistoricalPrice.filter(
+        (price) =>
+          price.date >= subDays(currentDate, 90) && price.date <= currentDate,
       );
       break;
 
     case TickerMovementTimeRange.SixMonths:
-      filteredData = tickerHistoricalPrice.filter(price => 
-        price.date >= subDays(currentDate, 180) && price.date <= currentDate
+      filteredData = tickerHistoricalPrice.filter(
+        (price) =>
+          price.date >= subDays(currentDate, 180) && price.date <= currentDate,
       );
       break;
 
     case TickerMovementTimeRange.OneYear:
-      filteredData = tickerHistoricalPrice.filter(price => 
-        price.date >= subDays(currentDate, 365) && price.date <= currentDate
+      filteredData = tickerHistoricalPrice.filter(
+        (price) =>
+          price.date >= subDays(currentDate, 365) && price.date <= currentDate,
       );
       break;
 
@@ -91,13 +104,15 @@ export const mapTickerHistoricalPriceToPoints = (tickerHistoricalPrice: ITickerP
   }
 
   const chronologicallyOrderedData = [...filteredData].reverse();
-  return chronologicallyOrderedData.map(point => ({
+  return chronologicallyOrderedData.map((point) => ({
     close: parseFloat(point.close),
-    date: point.date
+    date: point.date,
   }));
-}
+};
 
-export const getChangeWithinTimeRange = (closingPrices: ITickerPriceDataPoint[]): ITickerChange => {
+export const getChangeWithinTimeRange = (
+  closingPrices: ITickerPriceDataPoint[],
+): ITickerChange => {
   const firstPrice = closingPrices[0].close;
   const lastPrice = closingPrices[closingPrices.length - 1].close;
   const changeValue = lastPrice - firstPrice;
@@ -105,6 +120,6 @@ export const getChangeWithinTimeRange = (closingPrices: ITickerPriceDataPoint[])
 
   return {
     changeValue: changeValue.toString(),
-    changePercent: changePercent.toString()
-  }
-}
+    changePercent: changePercent.toString(),
+  };
+};

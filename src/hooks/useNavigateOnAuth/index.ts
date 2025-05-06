@@ -1,1 +1,1 @@
-export * from "./useNavigateOnAuth";
+export * from './useNavigateOnAuth';

@@ -1,1 +1,1 @@
-export * from "./WatchlistItem";
+export * from './WatchlistItem';

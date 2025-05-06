@@ -1,1 +1,1 @@
-export * from "./useFinnhubTickerProfile";
+export * from './useFinnhubTickerProfile';

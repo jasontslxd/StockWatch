@@ -1,1 +1,1 @@
-export * from "./useTopGainerLoser";
+export * from './useTopGainerLoser';

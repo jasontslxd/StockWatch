@@ -1,1 +1,1 @@
-export * from "./ShareInstrumentModal";
+export * from './ShareInstrumentModal';

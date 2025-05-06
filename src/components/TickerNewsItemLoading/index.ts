@@ -1,1 +1,1 @@
-export * from "./TickerNewsItemLoading";
+export * from './TickerNewsItemLoading';

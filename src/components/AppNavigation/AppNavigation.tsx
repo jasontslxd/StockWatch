@@ -1,11 +1,11 @@
-import { Page } from "common"
-import React from "react"
-import { Col, Container, Nav, Navbar, Row } from "react-bootstrap"
-import { Link, useLocation } from "react-router"
-import { Spacer } from "components"
+import { Page } from 'common';
+import React from 'react';
+import { Col, Container, Nav, Navbar, Row } from 'react-bootstrap';
+import { Link, useLocation } from 'react-router';
+import { Spacer } from 'components';
 
 export const AppNavigation: React.FC = () => {
-  const activePage = useLocation().pathname as Page;  
+  const activePage = useLocation().pathname as Page;
   const onDashboardPage = activePage === Page.Dashboard;
   const onPortfolioPage = activePage === Page.Portfolio;
 
@@ -13,7 +13,10 @@ export const AppNavigation: React.FC = () => {
     <Navbar fixed="bottom" className="bg-white">
       <Container fluid>
         <Row className="w-100 m-0">
-          <Col xs={6} className={`d-flex justify-content-center align-items-center p-0 ${onDashboardPage ? 'text-primary' : 'text-secondary'}`}>
+          <Col
+            xs={6}
+            className={`d-flex justify-content-center align-items-center p-0 ${onDashboardPage ? 'text-primary' : 'text-secondary'}`}
+          >
             <Nav.Link as={Link} to={Page.Dashboard} className="text-center">
               <div className="d-flex flex-column align-items-center">
                 <i className="bi bi-house-fill" />
@@ -21,7 +24,10 @@ export const AppNavigation: React.FC = () => {
               </div>
             </Nav.Link>
           </Col>
-          <Col xs={6} className={`d-flex justify-content-center align-items-center p-0 ${onPortfolioPage ? 'text-primary' : 'text-secondary'}`}>
+          <Col
+            xs={6}
+            className={`d-flex justify-content-center align-items-center p-0 ${onPortfolioPage ? 'text-primary' : 'text-secondary'}`}
+          >
             <Nav.Link as={Link} to={Page.Portfolio} className="text-center">
               <div className="d-flex flex-column align-items-center">
                 <i className="bi bi-wallet-fill" />
@@ -33,5 +39,5 @@ export const AppNavigation: React.FC = () => {
         <Spacer size="xxlg" />
       </Container>
     </Navbar>
-  )
-}
+  );
+};

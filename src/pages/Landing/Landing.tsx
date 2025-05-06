@@ -1,7 +1,7 @@
-import { Page } from "common";
-import { Spacer, LandingBanner } from "components";
-import { Container, Row, Col, Button } from "react-bootstrap";
-import { useNavigate } from "react-router";
+import { Page } from 'common';
+import { Spacer, LandingBanner } from 'components';
+import { Container, Row, Col, Button } from 'react-bootstrap';
+import { useNavigate } from 'react-router';
 
 export const Landing: React.FC = () => {
   const navigate = useNavigate();
@@ -25,13 +25,17 @@ export const Landing: React.FC = () => {
       <Container>
         <Row>
           <Col className="d-flex justify-content-center">
-            <Button variant="danger" onClick={() => navigate(Page.SignIn)}>Sign In</Button>
+            <Button variant="danger" onClick={() => navigate(Page.SignIn)}>
+              Sign In
+            </Button>
           </Col>
           <Col className="d-flex justify-content-center">
-            <Button variant="danger" onClick={() => navigate(Page.SignUp)}>Sign Up</Button>
+            <Button variant="danger" onClick={() => navigate(Page.SignUp)}>
+              Sign Up
+            </Button>
           </Col>
         </Row>
       </Container>
     </>
   );
-}
+};

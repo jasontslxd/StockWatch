@@ -1,9 +1,14 @@
-import { Page, LoginFlow } from "common";
-import { LandingBanner, Spacer, MobileInput, MobileSubmission } from "components";
-import { useState } from "react";
-import { Button, Container } from "react-bootstrap";
-import { useNavigate } from "react-router";
-import { useNavigateOnAuth } from "hooks";
+import { Page, LoginFlow } from 'common';
+import {
+  LandingBanner,
+  Spacer,
+  MobileInput,
+  MobileSubmission,
+} from 'components';
+import { useState } from 'react';
+import { Button, Container } from 'react-bootstrap';
+import { useNavigate } from 'react-router';
+import { useNavigateOnAuth } from 'hooks';
 
 export const SignUp: React.FC = () => {
   const navigate = useNavigate();
@@ -23,7 +28,10 @@ export const SignUp: React.FC = () => {
         <h1 className="text-center text-white">Sign Up !</h1>
       </LandingBanner>
       <MobileInput mobileValidationError={mobileValidationError} />
-      <MobileSubmission flow={LoginFlow.SignUp} setMobileValidationError={setMobileValidationError} />
+      <MobileSubmission
+        flow={LoginFlow.SignUp}
+        setMobileValidationError={setMobileValidationError}
+      />
     </>
   );
 };

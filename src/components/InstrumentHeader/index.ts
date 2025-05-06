@@ -1,1 +1,1 @@
-export * from "./InstrumentHeader";
+export * from './InstrumentHeader';

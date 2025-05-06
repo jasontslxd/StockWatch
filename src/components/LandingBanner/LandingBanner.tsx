@@ -1,4 +1,4 @@
-import { PropsWithChildren } from "react";
+import { PropsWithChildren } from 'react';
 
 export const LandingBanner: React.FC<PropsWithChildren> = ({ children }) => {
   return (

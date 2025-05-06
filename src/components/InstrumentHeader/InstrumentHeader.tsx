@@ -1,9 +1,9 @@
-import { Button, Col, Placeholder, Row } from "react-bootstrap";
-import { useAuth, useFinnhubTickerProfile } from "hooks";
-import { useNavigate } from "react-router";
-import { Page } from "common";
-import { ShareInstrumentModal, Spacer, TickerLogo } from "components";
-import { useState } from "react";
+import { Button, Col, Placeholder, Row } from 'react-bootstrap';
+import { useAuth, useFinnhubTickerProfile } from 'hooks';
+import { useNavigate } from 'react-router';
+import { Page } from 'common';
+import { ShareInstrumentModal, Spacer, TickerLogo } from 'components';
+import { useState } from 'react';
 
 interface IInstrumentHeaderProps {
   ticker: string;
@@ -14,11 +14,18 @@ interface IInstrumentHeaderProps {
   handleStarClick: () => void;
 }
 
-export const InstrumentHeader: React.FC<IInstrumentHeaderProps> = ({ ticker, showActions, backDestination, isStarred, handleStarClick }) => {
+export const InstrumentHeader: React.FC<IInstrumentHeaderProps> = ({
+  ticker,
+  showActions,
+  backDestination,
+  isStarred,
+  handleStarClick,
+}) => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const [showShareModal, setShowShareModal] = useState(false);
-  const { data: tickerProfile, isLoading: isLoadingTickerProfile } = useFinnhubTickerProfile(ticker);
+  const { data: tickerProfile, isLoading: isLoadingTickerProfile } =
+    useFinnhubTickerProfile(ticker);
   const { name } = tickerProfile || {};
 
   return (
@@ -27,33 +34,52 @@ export const InstrumentHeader: React.FC<IInstrumentHeaderProps> = ({ ticker, sho
       <Row>
         <Col>
           {user && (
-            <Button variant="white" onClick={() => navigate(backDestination.replace(":ticker", ticker))}>
+            <Button
+              variant="white"
+              onClick={() =>
+                navigate(backDestination.replace(':ticker', ticker))
+              }
+            >
               <i className="bi bi-arrow-left" />
             </Button>
           )}
         </Col>
         {showActions && (
           <Col className="text-end">
-          {user ? (
-            <Button variant="white" onClick={handleStarClick}>
-              <i className={`bi bi-star${isStarred ? "-fill" : ""} text-warning`} />
-            </Button>
-          ) : (
-            <Button variant="white" className="border-black" onClick={() => navigate(Page.SignIn)}>Login</Button>
-          )}
-          <Button variant="white" onClick={() => setShowShareModal(true)}>
-            <i className="bi bi-upload" />
+            {user ? (
+              <Button variant="white" onClick={handleStarClick}>
+                <i
+                  className={`bi bi-star${isStarred ? '-fill' : ''} text-warning`}
+                />
+              </Button>
+            ) : (
+              <Button
+                variant="white"
+                className="border-black"
+                onClick={() => navigate(Page.SignIn)}
+              >
+                Login
+              </Button>
+            )}
+            <Button variant="white" onClick={() => setShowShareModal(true)}>
+              <i className="bi bi-upload" />
             </Button>
           </Col>
         )}
       </Row>
-      <ShareInstrumentModal ticker={ticker} showShareInstrumentModal={showShareModal} setShowShareInstrumentModal={setShowShareModal} />
+      <ShareInstrumentModal
+        ticker={ticker}
+        showShareInstrumentModal={showShareModal}
+        setShowShareInstrumentModal={setShowShareModal}
+      />
       <Spacer />
       <p className="text-secondary fw-bold mb-1">{ticker}</p>
       <Row>
         <Col className="d-flex align-items-center">
           {isLoadingTickerProfile ? (
-            <Placeholder as="h1" xs={3}><Placeholder xs={12} /></Placeholder>
+            <Placeholder as="h1" xs={3}>
+              <Placeholder xs={12} />
+            </Placeholder>
           ) : (
             name && <h1 className="fw-bold">{name}</h1>
           )}
@@ -63,5 +89,5 @@ export const InstrumentHeader: React.FC<IInstrumentHeaderProps> = ({ ticker, sho
         </Col>
       </Row>
     </>
-  )
-}
+  );
+};

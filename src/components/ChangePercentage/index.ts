@@ -1,1 +1,1 @@
-export * from "./ChangePercentage";
+export * from './ChangePercentage';

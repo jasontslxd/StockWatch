@@ -1,8 +1,8 @@
-import { Button, Col, Container, Row} from "react-bootstrap";
-import { Spacer, LogoutModal, CompanySearchModal } from "components";
-import { useLocation } from "react-router";
-import { Page } from "common";
-import { useState } from "react";
+import { Button, Col, Container, Row } from 'react-bootstrap';
+import { Spacer, LogoutModal, CompanySearchModal } from 'components';
+import { useLocation } from 'react-router';
+import { Page } from 'common';
+import { useState } from 'react';
 
 interface IAppHeaderProps {
   title: string;
@@ -19,7 +19,7 @@ export const AppHeader: React.FC<IAppHeaderProps> = ({ title }) => {
     } else {
       setShowSettingsModal(true);
     }
-  }
+  };
 
   return (
     <>
@@ -41,8 +41,14 @@ export const AppHeader: React.FC<IAppHeaderProps> = ({ title }) => {
         </Row>
         <Spacer size="xxlg" />
       </Container>
-      <LogoutModal showSettingsModal={showSettingsModal} setShowSettingsModal={setShowSettingsModal} />
-      <CompanySearchModal showSearchModal={showSearchModal} setShowSearchModal={setShowSearchModal} />
+      <LogoutModal
+        showSettingsModal={showSettingsModal}
+        setShowSettingsModal={setShowSettingsModal}
+      />
+      <CompanySearchModal
+        showSearchModal={showSearchModal}
+        setShowSearchModal={setShowSearchModal}
+      />
     </>
   );
 };

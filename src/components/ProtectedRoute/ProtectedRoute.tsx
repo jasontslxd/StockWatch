@@ -1,5 +1,5 @@
-import { useAuth } from "hooks";
-import { Navigate } from "react-router";
+import { useAuth } from 'hooks';
+import { Navigate } from 'react-router';
 
 interface IProtectedRouteProps {
   page: React.ReactNode;
@@ -13,4 +13,4 @@ export const ProtectedRoute: React.FC<IProtectedRouteProps> = ({ page }) => {
   }
 
   return page;
-}
+};

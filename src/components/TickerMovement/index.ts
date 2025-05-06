@@ -1,1 +1,1 @@
-export * from "./TickerMovement";
+export * from './TickerMovement';

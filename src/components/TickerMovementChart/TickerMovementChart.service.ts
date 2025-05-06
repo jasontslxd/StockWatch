@@ -1,7 +1,10 @@
-import { TickerMovementTimeRange } from "common";
-import { format } from "date-fns";
+import { TickerMovementTimeRange } from 'common';
+import { format } from 'date-fns';
 
-export const formatXAxis = (date: Date, selectedTimeRange: TickerMovementTimeRange) => {
+export const formatXAxis = (
+  date: Date,
+  selectedTimeRange: TickerMovementTimeRange,
+) => {
   switch (selectedTimeRange) {
     case TickerMovementTimeRange.OneDay:
       return format(date, 'HH:mm');

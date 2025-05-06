@@ -1,12 +1,16 @@
-import { Card, Placeholder } from "react-bootstrap";
-import { Spacer } from "components";
+import { Card, Placeholder } from 'react-bootstrap';
+import { Spacer } from 'components';
 
 export const TickerCardLoading: React.FC = () => {
   return (
     <Card className="bg-white">
       <Card.Body>
         <Card.Title>
-          <Placeholder as="div" animation="wave" style={{ width: '3rem', height: '3rem' }}>
+          <Placeholder
+            as="div"
+            animation="wave"
+            style={{ width: '3rem', height: '3rem' }}
+          >
             <Placeholder xs={12} className="rounded-circle w-100 h-100" />
           </Placeholder>
         </Card.Title>
@@ -30,5 +34,5 @@ export const TickerCardLoading: React.FC = () => {
         </Card.Text>
       </Card.Body>
     </Card>
-  )
-}
+  );
+};

@@ -1,1 +1,1 @@
-export * from "./PurchaseModal";
+export * from './PurchaseModal';

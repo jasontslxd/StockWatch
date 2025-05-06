@@ -1,43 +1,53 @@
-import { IPortfolioItem } from "common";
-import { ChangePercentage, TickerLogo } from "components";
-import { useFinnhubTickerProfile, useTickerGlobalQuote } from "hooks";
-import { useEffect } from "react";
-import { Col, ListGroup, Placeholder, Row } from "react-bootstrap";
+import { IPortfolioItem } from 'common';
+import { ChangePercentage, TickerLogo } from 'components';
+import { useFinnhubTickerProfile, useTickerGlobalQuote } from 'hooks';
+import { useEffect } from 'react';
+import { Col, ListGroup, Placeholder, Row } from 'react-bootstrap';
 
 interface IPortfolioItemProps {
   portfolioItem: IPortfolioItem;
   setPortfolioPnL: React.Dispatch<React.SetStateAction<number>>;
 }
 
-export const PortfolioItem: React.FC<IPortfolioItemProps> = ({ portfolioItem, setPortfolioPnL }) => {
+export const PortfolioItem: React.FC<IPortfolioItemProps> = ({
+  portfolioItem,
+  setPortfolioPnL,
+}) => {
   const { ticker, quantity, averagePrice, totalCost } = portfolioItem;
-  const { data: globalQuote, isLoading: isLoadingGlobalQuote } = useTickerGlobalQuote(ticker!);
+  const { data: globalQuote, isLoading: isLoadingGlobalQuote } =
+    useTickerGlobalQuote(ticker!);
   const { price: currentPrice } = globalQuote || {};
   const { data: tickerProfile } = useFinnhubTickerProfile(ticker);
   const { name: tickerName } = tickerProfile || {};
 
-  const unitMovement = currentPrice ? (parseFloat(currentPrice) - averagePrice) : 0;
+  const unitMovement = currentPrice
+    ? parseFloat(currentPrice) - averagePrice
+    : 0;
   const pnl = unitMovement * quantity;
 
   useEffect(() => {
-    setPortfolioPnL(prevPnL => prevPnL + pnl);
+    setPortfolioPnL((prevPnL) => prevPnL + pnl);
 
     return () => {
-      setPortfolioPnL(prevPnL => prevPnL - pnl);
+      setPortfolioPnL((prevPnL) => prevPnL - pnl);
     };
   }, [pnl, setPortfolioPnL]);
 
   if (isLoadingGlobalQuote) {
-    return <ListGroup.Item key={ticker} className="rounded-2">
-      <Row>
-        <Col>
-          <TickerLogo ticker={ticker} renderLoading />
-        </Col>
-        <Col>
-          <Placeholder as="p" animation="wave"><Placeholder xs={12} /></Placeholder>
-        </Col>
-      </Row>
-    </ListGroup.Item>
+    return (
+      <ListGroup.Item key={ticker} className="rounded-2">
+        <Row>
+          <Col>
+            <TickerLogo ticker={ticker} renderLoading />
+          </Col>
+          <Col>
+            <Placeholder as="p" animation="wave">
+              <Placeholder xs={12} />
+            </Placeholder>
+          </Col>
+        </Row>
+      </ListGroup.Item>
+    );
   }
 
   return (
@@ -48,15 +58,22 @@ export const PortfolioItem: React.FC<IPortfolioItemProps> = ({ portfolioItem, se
           <p className="fw-bold m-0">{ticker}</p>
           <p className="m-0">{tickerName}</p>
         </Col>
-        <Col xs={7} className="d-flex flex-column justify-content-center text-end">
+        <Col
+          xs={7}
+          className="d-flex flex-column justify-content-center text-end"
+        >
           <p className="m-0">Quantity: {quantity}</p>
           <p className="m-0">Latest price: ${currentPrice}</p>
           <p className="m-0">Current value: ${totalCost.toFixed(4)}</p>
-          <p className="m-0">P&L:{' '}
-            <ChangePercentage changePercentage={pnl.toFixed(2)} fillBackground />
+          <p className="m-0">
+            P&L:{' '}
+            <ChangePercentage
+              changePercentage={pnl.toFixed(2)}
+              fillBackground
+            />
           </p>
         </Col>
       </Row>
     </ListGroup.Item>
-  )
+  );
 };

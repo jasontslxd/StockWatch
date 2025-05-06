@@ -1,7 +1,7 @@
-import { useNavigate } from "react-router";
-import { useAuth } from "hooks";
-import { Page } from "common";
-import { useEffect } from "react";
+import { useNavigate } from 'react-router';
+import { useAuth } from 'hooks';
+import { Page } from 'common';
+import { useEffect } from 'react';
 
 export const useNavigateOnAuth = () => {
   const navigate = useNavigate();

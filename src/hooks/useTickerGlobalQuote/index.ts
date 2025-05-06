@@ -1,1 +1,1 @@
-export * from "./useTickerGlobalQuote";
+export * from './useTickerGlobalQuote';

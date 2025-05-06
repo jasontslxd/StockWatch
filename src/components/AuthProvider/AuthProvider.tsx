@@ -1,7 +1,7 @@
-import { PropsWithChildren, useEffect, useState } from "react";
-import { IAuthContext } from "common";
-import { getAuth, onAuthStateChanged, User } from "firebase/auth";
-import { AuthContext } from "contexts";
+import { PropsWithChildren, useEffect, useState } from 'react';
+import { IAuthContext } from 'common';
+import { getAuth, onAuthStateChanged, User } from 'firebase/auth';
+import { AuthContext } from 'contexts';
 
 export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
@@ -28,8 +28,6 @@ export const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={contextValue}>
-      {children}
-    </AuthContext.Provider>
+    <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
   );
 };

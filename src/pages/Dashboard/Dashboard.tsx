@@ -1,4 +1,10 @@
-import { AppContainer, AppHeader, AppNavigation, GainersLosers, Watchlist } from "components";
+import {
+  AppContainer,
+  AppHeader,
+  AppNavigation,
+  GainersLosers,
+  Watchlist,
+} from 'components';
 
 export const Dashboard: React.FC = () => {
   return (

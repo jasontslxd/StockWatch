@@ -1,1 +1,1 @@
-export * from "./TickerCard";
+export * from './TickerCard';

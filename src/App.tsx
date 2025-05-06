@@ -1,17 +1,30 @@
-import { AuthProvider, FirestoreProvider, ProtectedRoute } from "components"
-import { Routes, Route } from "react-router"
-import { Dashboard, Landing, Portfolio, SignUp, SignIn, VerifyOtp, Instrument, NotFound } from "pages"
-import { Page } from "common"
-import { useEffect } from "react"
-import { browserSessionPersistence, getAuth, setPersistence } from "firebase/auth"
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+import { AuthProvider, FirestoreProvider, ProtectedRoute } from 'components';
+import { Routes, Route } from 'react-router';
+import {
+  Dashboard,
+  Landing,
+  Portfolio,
+  SignUp,
+  SignIn,
+  VerifyOtp,
+  Instrument,
+  NotFound,
+} from 'pages';
+import { Page } from 'common';
+import { useEffect } from 'react';
+import {
+  browserSessionPersistence,
+  getAuth,
+  setPersistence,
+} from 'firebase/auth';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 export const App: React.FC = () => {
   useEffect(() => {
     const setAuthPersistence = async () => {
       const auth = getAuth();
       await setPersistence(auth, browserSessionPersistence);
-    }
+    };
     setAuthPersistence();
   }, []);
 
@@ -26,13 +39,19 @@ export const App: React.FC = () => {
             <Route path={Page.SignUp} element={<SignUp />} />
             <Route path={Page.SignIn} element={<SignIn />} />
             <Route path={Page.VerifyOtp} element={<VerifyOtp />} />
-            <Route path={Page.Dashboard} element={<ProtectedRoute page={<Dashboard />} />} />
-            <Route path={Page.Portfolio} element={<ProtectedRoute page={<Portfolio />} />} />
+            <Route
+              path={Page.Dashboard}
+              element={<ProtectedRoute page={<Dashboard />} />}
+            />
+            <Route
+              path={Page.Portfolio}
+              element={<ProtectedRoute page={<Portfolio />} />}
+            />
             <Route path={Page.Instrument} element={<Instrument />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </QueryClientProvider>
       </AuthProvider>
     </FirestoreProvider>
-  )
-}
+  );
+};

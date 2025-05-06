@@ -4,7 +4,7 @@ export enum ViewportSize {
   md = 'md',
   lg = 'lg',
   xl = 'xl',
-  xxl = 'xxl'
+  xxl = 'xxl',
 }
 
 export enum Page {
@@ -20,7 +20,7 @@ export enum Page {
 
 export enum LoginFlow {
   SignIn = 'signin',
-  SignUp = 'signup'
+  SignUp = 'signup',
 }
 
 export enum TickerMovementTimeRange {
@@ -30,10 +30,10 @@ export enum TickerMovementTimeRange {
   NinetyDays = '90d',
   SixMonths = '6m',
   OneYear = '1y',
-  AllTime = "All"
+  AllTime = 'All',
 }
 
 export enum TickerTimeSeriesFrequency {
-  Intraday = "intraday",
-  Daily = "daily"
+  Intraday = 'intraday',
+  Daily = 'daily',
 }

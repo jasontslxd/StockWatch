@@ -1,8 +1,8 @@
-import { Page, LoginFlow } from "common";
-import { LandingBanner, Spacer, OtpInput, OtpSubmission } from "components";
-import { Button, Container } from "react-bootstrap";
-import { useLocation, useNavigate } from "react-router";
-import { useState } from "react";
+import { Page, LoginFlow } from 'common';
+import { LandingBanner, Spacer, OtpInput, OtpSubmission } from 'components';
+import { Button, Container } from 'react-bootstrap';
+import { useLocation, useNavigate } from 'react-router';
+import { useState } from 'react';
 
 export const VerifyOtp: React.FC = () => {
   const [otpValidationError, setOtpValidationError] = useState(false);
@@ -22,7 +22,10 @@ export const VerifyOtp: React.FC = () => {
       <Spacer size="xxlg" />
       <h1 className="text-center text-white">{titleText} !</h1>
       <OtpInput otpValidationError={otpValidationError} />
-      <OtpSubmission flow={flow} setOtpValidationError={setOtpValidationError} />
+      <OtpSubmission
+        flow={flow}
+        setOtpValidationError={setOtpValidationError}
+      />
     </LandingBanner>
   );
 };

@@ -1,17 +1,19 @@
-import { Spacer, PortfolioItem, ChangePercentage } from "components";
-import { useAuth } from "hooks";
-import { getPortfolioSummary, getPortfolioBreakdown } from "firestore";
-import { useState, useEffect, useContext } from "react";
-import { FirestoreContext } from "contexts";
-import { IPortfolioItem } from "common";
-import { ListGroup, Spinner } from "react-bootstrap";
-import { Placeholder } from "react-bootstrap";
+import { Spacer, PortfolioItem, ChangePercentage } from 'components';
+import { useAuth } from 'hooks';
+import { getPortfolioSummary, getPortfolioBreakdown } from 'firestore';
+import { useState, useEffect, useContext } from 'react';
+import { FirestoreContext } from 'contexts';
+import { IPortfolioItem } from 'common';
+import { ListGroup, Spinner } from 'react-bootstrap';
+import { Placeholder } from 'react-bootstrap';
 
 export const PortfolioSummary: React.FC = () => {
   const { user } = useAuth();
   const { firestore } = useContext(FirestoreContext);
   const [totalValue, setTotalValue] = useState<number>(0);
-  const [portfolioBreakdown, setPortfolioBreakdown] = useState<IPortfolioItem[]>([]);
+  const [portfolioBreakdown, setPortfolioBreakdown] = useState<
+    IPortfolioItem[]
+  >([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [portfolioPnL, setPortfolioPnL] = useState(0);
 
@@ -32,16 +34,37 @@ export const PortfolioSummary: React.FC = () => {
 
   const renderPortfolioPnL = () => {
     if (isLoading) {
-      return <Placeholder className="ms-2" as="p" animation="glow" xs={2}><Placeholder xs={12} /></Placeholder>
+      return (
+        <Placeholder className="ms-2" as="p" animation="glow" xs={2}>
+          <Placeholder xs={12} />
+        </Placeholder>
+      );
     }
 
-    return <h3 className="fw-bold">P&L: <ChangePercentage changePercentage={portfolioPnL.toFixed(2)} fillBackground /></h3>
-  }
+    return (
+      <h3 className="fw-bold">
+        P&L:{' '}
+        <ChangePercentage
+          changePercentage={portfolioPnL.toFixed(2)}
+          fillBackground
+        />
+      </h3>
+    );
+  };
 
   return (
     <div>
       <Spacer size="xs" />
-      <h2 className="fw-bold d-flex">Total Value: {isLoading ? <Placeholder className="ms-2" as="p" animation="glow" xs={2}><Placeholder xs={12} /></Placeholder> : `$${totalValue}`}</h2>
+      <h2 className="fw-bold d-flex">
+        Total Value:{' '}
+        {isLoading ? (
+          <Placeholder className="ms-2" as="p" animation="glow" xs={2}>
+            <Placeholder xs={12} />
+          </Placeholder>
+        ) : (
+          `$${totalValue}`
+        )}
+      </h2>
       {renderPortfolioPnL()}
       <Spacer size="xs" />
       <h4>Portfolio Breakdown</h4>
@@ -55,7 +78,10 @@ export const PortfolioSummary: React.FC = () => {
           {portfolioBreakdown.map((item) => {
             return (
               <div key={item.ticker}>
-                <PortfolioItem portfolioItem={item} setPortfolioPnL={setPortfolioPnL} />
+                <PortfolioItem
+                  portfolioItem={item}
+                  setPortfolioPnL={setPortfolioPnL}
+                />
                 <Spacer size="xs" />
               </div>
             );
