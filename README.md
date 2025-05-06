@@ -15,3 +15,11 @@
   ```sh
   bun commit
   ```
+
+## To deploy
+  ```sh
+  bun install -g firebase-tools
+  firebase login
+  bun run build
+  firebase deploy
+  ```
