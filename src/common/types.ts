@@ -1,5 +1,6 @@
 import { User } from 'firebase/auth';
 import { Firestore } from 'firebase/firestore';
+import React from 'react';
 
 export type IAuthContext = {
   user: User | null;
@@ -9,6 +10,11 @@ export type IAuthContext = {
 
 export type IFirestoreContext = {
   firestore: Firestore | null;
+};
+
+export type IUrlContext = {
+  shouldUseRealUrl: boolean;
+  setShouldUseRealUrl: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export type ITickerPerformance = {
@@ -181,4 +187,5 @@ export type IReactQueryResponse<T> = {
   data: T;
   isLoading: boolean;
   isError: boolean;
+  isRateLimitError?: boolean;
 };

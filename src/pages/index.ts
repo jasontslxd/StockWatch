@@ -6,3 +6,4 @@ export * from './Portfolio';
 export * from './VerifyOtp';
 export * from './Instrument';
 export * from './NotFound';
+export * from './RateLimit';

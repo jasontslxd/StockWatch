@@ -1,4 +1,4 @@
-import { AuthProvider, FirestoreProvider, ProtectedRoute } from 'components';
+import { AuthProvider, FirestoreProvider, ProtectedRoute, UrlContextProvider } from 'components';
 import { Routes, Route } from 'react-router';
 import {
   Dashboard,
@@ -9,6 +9,7 @@ import {
   VerifyOtp,
   Instrument,
   NotFound,
+  RateLimit,
 } from 'pages';
 import { Page } from 'common';
 import { useEffect } from 'react';
@@ -34,22 +35,25 @@ export const App: React.FC = () => {
     <FirestoreProvider>
       <AuthProvider>
         <QueryClientProvider client={queryClient}>
-          <Routes>
-            <Route path={Page.Landing} element={<Landing />} />
-            <Route path={Page.SignUp} element={<SignUp />} />
-            <Route path={Page.SignIn} element={<SignIn />} />
-            <Route path={Page.VerifyOtp} element={<VerifyOtp />} />
-            <Route
-              path={Page.Dashboard}
-              element={<ProtectedRoute page={<Dashboard />} />}
-            />
-            <Route
-              path={Page.Portfolio}
-              element={<ProtectedRoute page={<Portfolio />} />}
-            />
-            <Route path={Page.Instrument} element={<Instrument />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+          <UrlContextProvider>
+            <Routes>
+              <Route path={Page.Landing} element={<Landing />} />
+              <Route path={Page.SignUp} element={<SignUp />} />
+              <Route path={Page.SignIn} element={<SignIn />} />
+              <Route path={Page.VerifyOtp} element={<VerifyOtp />} />
+              <Route
+                path={Page.Dashboard}
+                element={<ProtectedRoute page={<Dashboard />} />}
+              />
+              <Route
+                path={Page.Portfolio}
+                element={<ProtectedRoute page={<Portfolio />} />}
+              />
+              <Route path={Page.Instrument} element={<Instrument />} />
+              <Route path={Page.RateLimit} element={<RateLimit />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </UrlContextProvider>
         </QueryClientProvider>
       </AuthProvider>
     </FirestoreProvider>

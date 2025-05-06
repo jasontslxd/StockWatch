@@ -31,3 +31,4 @@ export * from './PortfolioItem';
 export * from './WatchlistItem';
 export * from './TickerMovementChart';
 export * from './ChangePercentage';
+export * from './UrlContextProvider';
