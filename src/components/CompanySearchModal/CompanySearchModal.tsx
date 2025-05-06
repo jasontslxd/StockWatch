@@ -1,7 +1,8 @@
 import { ICompanySearchMatchResponse, ICompanySearchApiResponse } from 'common';
 import { CompanySearchResult, Spacer } from 'components';
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, useContext } from 'react';
 import { Modal, Button, Form, ListGroup } from 'react-bootstrap';
+import { UrlContext } from 'contexts';
 
 interface ISearchModalProps {
   showSearchModal: boolean;
@@ -18,12 +19,13 @@ export const CompanySearchModal: React.FC<ISearchModalProps> = ({
     ICompanySearchMatchResponse[]
   >([]);
   const [isError, setIsError] = useState(false);
+  const { shouldUseRealUrl } = useContext(UrlContext);
 
   const searchCompany = async (query: string) => {
     let companySearchResponse: ICompanySearchApiResponse;
 
     try {
-      if (import.meta.env.PROD) {
+      if (shouldUseRealUrl) {
         const url = `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${query}&apikey=${import.meta.env.VITE_ALPHAVANTAGE_API_KEY}`;
         const response = await fetch(url);
         companySearchResponse =
@@ -52,7 +54,7 @@ export const CompanySearchModal: React.FC<ISearchModalProps> = ({
     }, 500);
 
     return () => clearTimeout(timer);
-  }, [searchQuery]);
+  }, [searchQuery, searchCompany]);
 
   const onSearchQueryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);

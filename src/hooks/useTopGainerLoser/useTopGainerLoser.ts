@@ -4,16 +4,19 @@ import {
   IGainerLosers,
   IReactQueryResponse,
 } from 'common';
+import { UrlContext } from 'contexts';
+import { useContext } from 'react';
 
 export const useTopGainerLoser = (): IReactQueryResponse<IGainerLosers> => {
+  const { shouldUseRealUrl } = useContext(UrlContext);
   const url = `https://www.alphavantage.co/query?function=TOP_GAINERS_LOSERS&apikey=${import.meta.env.VITE_ALPHAVANTAGE_API_KEY}`;
   const demoUrl =
     'https://www.alphavantage.co/query?function=TOP_GAINERS_LOSERS&apikey=demo';
 
   const { isPending, error, data } = useQuery({
-    queryKey: ['topGainersLosers'],
+    queryKey: ['topGainersLosers', shouldUseRealUrl],
     queryFn: (): Promise<IGainerLosersApiResponse> =>
-      fetch(import.meta.env.PROD ? url : demoUrl).then((res) => res.json()),
+      fetch(shouldUseRealUrl ? url : demoUrl).then((res) => res.json()),
   });
 
   if (isPending) {
@@ -29,6 +32,15 @@ export const useTopGainerLoser = (): IReactQueryResponse<IGainerLosers> => {
       data: { topGainers: [], topLosers: [] },
       isLoading: false,
       isError: true,
+    };
+  }
+
+  if ((data as any)["Information"] && (data as any)["Information"].includes("rate limit")) {
+    return {
+      data: { topGainers: [], topLosers: [] },
+      isLoading: false,
+      isError: true,
+      isRateLimitError: true,
     };
   }
 

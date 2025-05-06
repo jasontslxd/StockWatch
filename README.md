@@ -36,5 +36,6 @@ firebase deploy
 Requres Android Studio + Java 21 to build. Setup an emulator in Android Studio.
 
 ```sh
+bun run build
 bun cap run android
 ```

@@ -10,6 +10,8 @@ import {
   mapTickerMovementTimeRangeToTimeSeriesFrequency,
 } from './useTickerHistoricalPrice.service';
 import { useQuery } from '@tanstack/react-query';
+import { UrlContext } from 'contexts';
+import { useContext } from 'react';
 
 interface IUseTickerHistoricalPriceProps {
   ticker: string;
@@ -20,6 +22,7 @@ export const useTickerHistoricalPrice = ({
   ticker,
   timeRange,
 }: IUseTickerHistoricalPriceProps): IReactQueryResponse<ITickerPriceData[]> => {
+  const { shouldUseRealUrl } = useContext(UrlContext);
   const frequency = mapTickerMovementTimeRangeToTimeSeriesFrequency(timeRange);
 
   const intradayUrl = `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${ticker}&interval=5min&outputsize=full&apikey=${import.meta.env.VITE_ALPHAVANTAGE_API_KEY}`;
@@ -37,9 +40,9 @@ export const useTickerHistoricalPrice = ({
       : demoDailyUrl;
 
   const { isPending, error, data } = useQuery({
-    queryKey: ['tickerHistoricalPrice', ticker, frequency],
+    queryKey: ['tickerHistoricalPrice', ticker, frequency, shouldUseRealUrl],
     queryFn: (): Promise<ITickerTimeSeriesApiResponse> =>
-      fetch(import.meta.env.PROD ? url : demoUrl).then((res) => res.json()),
+      fetch(shouldUseRealUrl ? url : demoUrl).then((res) => res.json()),
   });
 
   if (isPending) {

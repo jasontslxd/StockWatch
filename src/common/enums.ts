@@ -16,6 +16,7 @@ export enum Page {
   Portfolio = '/portfolio',
   Instrument = '/instrument/:ticker',
   NotFound = '/notfound',
+  RateLimit = '/rate-limit',
 }
 
 export enum LoginFlow {
