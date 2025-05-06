@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">StockWatch</string>
+    <string name="title_activity_main">StockWatch</string>
+    <string name="package_name">app.web.stockwatch_5077f</string>
+    <string name="custom_url_scheme">app.web.stockwatch_5077f</string>
+</resources>

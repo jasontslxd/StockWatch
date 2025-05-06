@@ -1,4 +1,6 @@
-# React app with Typescript
+# StockWatch
+
+An app built with React + Typescript.
 
 ## Setting up the dev environment
 
@@ -22,8 +24,17 @@ bun commit
 ## To deploy
 
 ```sh
+# First time setup
 bun install -g firebase-tools
 firebase login
+
 bun run build
 firebase deploy
+```
+
+## To run on android
+Requres Android Studio + Java 21 to build. Setup an emulator in Android Studio.
+
+```sh
+bun cap run android
 ```
