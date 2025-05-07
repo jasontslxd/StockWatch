@@ -1,6 +1,7 @@
 import {
   formatChangeAmount,
   ITickerGlobalQuote,
+  Page,
   TickerMovementTimeRange,
 } from 'common';
 import {
@@ -11,6 +12,7 @@ import { Spacer, TickerTimeSeries, ChangePercentage } from 'components';
 import { useTickerHistoricalPrice } from 'hooks';
 import { useState } from 'react';
 import { Button, Placeholder } from 'react-bootstrap';
+import { useNavigate } from 'react-router';
 
 interface ITickerMovementProps {
   ticker: string;
@@ -25,16 +27,22 @@ export const TickerMovement: React.FC<ITickerMovementProps> = ({
   isLoadingGlobalQuote,
   isErrorGlobalQuote,
 }) => {
+  const navigate = useNavigate();
   const [selectedTimeRange, setSelectedTimeRange] =
     useState<TickerMovementTimeRange>(TickerMovementTimeRange.OneDay);
   const {
     data: tickerHistoricalPrice,
     isLoading: isLoadingTickerHistoricalPrice,
     isError: isErrorTickerHistoricalPrice,
+    isRateLimitError: isRateLimitErrorTickerHistoricalPrice,
   } = useTickerHistoricalPrice({
     ticker,
     timeRange: selectedTimeRange,
   });
+
+  if (isRateLimitErrorTickerHistoricalPrice) {
+    navigate(Page.RateLimit);
+  }
 
   const renderTickerSummary = () => {
     if (isLoadingGlobalQuote || isLoadingTickerHistoricalPrice) {

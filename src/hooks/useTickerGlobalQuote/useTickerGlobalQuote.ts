@@ -40,6 +40,15 @@ export const useTickerGlobalQuote = (
     };
   }
 
+  if ((data as any)["Information"] && (data as any)["Information"].includes("rate limit")) {
+    return {
+      data: {} as ITickerGlobalQuote,
+      isLoading: false,
+      isError: true,
+      isRateLimitError: true,
+    };
+  }
+
   return {
     data: parseGlobalQuote(data),
     isLoading: false,

@@ -23,12 +23,12 @@
     "noUncheckedSideEffectImports": true,
     "baseUrl": "src",
     "paths": {
-      "components": ["components"],
-      "hooks": ["hooks"],
-      "common": ["common"],
-      "pages": ["pages"],
-      "contexts": ["contexts"],
-      "firestore": ["firestore"]
+      "@components/*": ["components/*"],
+      "@hooks/*": ["hooks/*"],
+      "@common/*": ["common/*"],
+      "@pages/*": ["pages/*"],
+      "@contexts/*": ["contexts/*"],
+      "@firestore/*": ["firestore/*"]
     }
   },
   "include": ["src"]

@@ -1,4 +1,6 @@
 import { configDefaults, defineConfig } from 'vitest/config';
+import tsconfigPaths from 'vite-tsconfig-paths';
+import path from 'path';
 
 export default defineConfig({
   test: {
@@ -23,5 +25,19 @@ export default defineConfig({
         'src/main.tsx',
       ],
     },
+    environment: 'jsdom',
+    globals: true,
+    setupFiles: ['./src/setupTests.ts'],
   },
+  resolve: {
+    alias: {
+      'components': path.resolve(__dirname, './src/components'),
+      'hooks': path.resolve(__dirname, './src/hooks'),
+      'common': path.resolve(__dirname, './src/common'),
+      'pages': path.resolve(__dirname, './src/pages'),
+      'contexts': path.resolve(__dirname, './src/contexts'),
+      'firestore': path.resolve(__dirname, './src/firestore'),
+    },
+  },
+  plugins: [tsconfigPaths()],
 });

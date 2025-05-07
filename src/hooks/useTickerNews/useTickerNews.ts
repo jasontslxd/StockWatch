@@ -36,6 +36,15 @@ export const useTickerNews = (
     };
   }
 
+  if ((data as any)["Information"] && (data as any)["Information"].includes("rate limit")) {
+    return {
+      data: {} as ICompanyNews,
+      isLoading: false,
+      isError: true,
+      isRateLimitError: true,
+    };
+  }
+
   return {
     data: data,
     isLoading: false,

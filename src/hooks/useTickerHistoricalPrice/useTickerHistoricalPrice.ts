@@ -61,6 +61,15 @@ export const useTickerHistoricalPrice = ({
     };
   }
 
+  if ((data as any)["Information"] && (data as any)["Information"].includes("rate limit")) {
+    return {
+      data: [],
+      isLoading: false,
+      isError: true,
+      isRateLimitError: true,
+    };
+  }
+
   return {
     data: mapTickerHistoricalPrice(data, frequency),
     isLoading: false,
