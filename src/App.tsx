@@ -1,4 +1,9 @@
-import { AuthProvider, FirestoreProvider, ProtectedRoute, UrlContextProvider } from 'components';
+import {
+  AuthProvider,
+  FirestoreProvider,
+  ProtectedRoute,
+  UrlContextProvider,
+} from 'components';
 import { Routes, Route } from 'react-router';
 import {
   Dashboard,

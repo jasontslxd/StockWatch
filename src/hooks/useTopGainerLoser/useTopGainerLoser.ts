@@ -35,7 +35,10 @@ export const useTopGainerLoser = (): IReactQueryResponse<IGainerLosers> => {
     };
   }
 
-  if ((data as any)["Information"] && (data as any)["Information"].includes("rate limit")) {
+  if (
+    (data as any)['Information'] &&
+    (data as any)['Information'].includes('rate limit')
+  ) {
     return {
       data: { topGainers: [], topLosers: [] },
       isLoading: false,

@@ -15,9 +15,7 @@ export const useTickerNews = (
   const { isPending, error, data } = useQuery({
     queryKey: ['tickerNews', ticker, limit, shouldUseRealUrl],
     queryFn: (): Promise<ICompanyNews> =>
-      fetch(shouldUseRealUrl ? newsUrl : demoNewsUrl).then((res) =>
-        res.json(),
-      ),
+      fetch(shouldUseRealUrl ? newsUrl : demoNewsUrl).then((res) => res.json()),
   });
 
   if (isPending) {
@@ -36,7 +34,10 @@ export const useTickerNews = (
     };
   }
 
-  if ((data as any)["Information"] && (data as any)["Information"].includes("rate limit")) {
+  if (
+    (data as any)['Information'] &&
+    (data as any)['Information'].includes('rate limit')
+  ) {
     return {
       data: {} as ICompanyNews,
       isLoading: false,

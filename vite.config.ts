@@ -12,6 +12,7 @@ export default defineConfig({
       pages: '/src/pages',
       contexts: '/src/contexts',
       firestore: '/src/firestore',
+      mocks: '/mocks',
     },
   },
 });

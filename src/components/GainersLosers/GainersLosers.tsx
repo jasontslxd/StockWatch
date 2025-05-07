@@ -10,7 +10,7 @@ export const GainersLosers: React.FC = () => {
     data: { topGainers, topLosers },
     isLoading: isLoadingTopGainersLosers,
     isError: isErrorTopGainersLosers,
-    isRateLimitError: isRateLimitErrorTopGainersLosers
+    isRateLimitError: isRateLimitErrorTopGainersLosers,
   } = useTopGainerLoser();
   const [showTopGainersLosersModal, setShowTopGainersLosersModal] =
     useState(false);

@@ -12,4 +12,3 @@ vi.mock('firebase/auth', () => ({
   signInWithPhoneNumber: vi.fn(),
   ConfirmationResult: vi.fn(),
 }));
-

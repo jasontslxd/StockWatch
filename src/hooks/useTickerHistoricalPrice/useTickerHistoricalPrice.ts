@@ -61,7 +61,10 @@ export const useTickerHistoricalPrice = ({
     };
   }
 
-  if ((data as any)["Information"] && (data as any)["Information"].includes("rate limit")) {
+  if (
+    (data as any)['Information'] &&
+    (data as any)['Information'].includes('rate limit')
+  ) {
     return {
       data: [],
       isLoading: false,
