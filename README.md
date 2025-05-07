@@ -1,6 +1,6 @@
 # StockWatch
 
-An app built with React + Typescript.
+An stock market tracker app built with React + Typescript, integrated with Firebase, Alpha Vantage and Finnhub.
 
 ## Setting up the dev environment
 
@@ -8,6 +8,8 @@ An app built with React + Typescript.
 npm install -g bun
 bun install
 ```
+Then add `.env` file and add `VITE_FINNHUB_API_KEY` from [Finnhub](https://finnhub.io/) 
+and `VITE_ALPHAVANTAGE_API_KEY` from [Alpha Vantage](https://www.alphavantage.co/).
 
 ## To start dev server
 
@@ -24,7 +26,7 @@ bun commit
 ## To deploy
 
 ```sh
-# First time setup
+# First time setup only
 bun install -g firebase-tools
 firebase login
 
@@ -34,6 +36,7 @@ firebase deploy
 
 ## To run on android
 Requres Android Studio + Java 21 to build. Setup an emulator in Android Studio.
+No iOS build as I dont have a mac.
 
 ```sh
 bun run build
