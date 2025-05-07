@@ -2,6 +2,19 @@
 
 An stock market tracker app built with React + Typescript, integrated with Firebase, Alpha Vantage and Finnhub.
 
+## Showcase
+Alpha Vantage has a rate limit of 25 requests per day for the free api key, so we have to switch to the demo api after the rate limit is up.
+The webapp can be found here https://stockwatch-5077f.web.app/, and you can login with the demo account 12345678, OTP 123456.
+If you have a HK number you can also enter your mobile number and verify your OTP that way.
+
+### Web app demo with real endpoints
+
+https://github.com/user-attachments/assets/b6923683-7159-440e-bc4b-e4367fb782a6
+
+### Android demo with demo endpoints
+
+https://github.com/user-attachments/assets/08c31e0f-5408-4d0e-a7f9-7a8d17c247eb
+
 ## Setting up the dev environment
 
 ```sh
