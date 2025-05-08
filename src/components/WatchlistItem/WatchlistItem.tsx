@@ -6,7 +6,7 @@ import {
 } from 'common';
 import { Col, ListGroup, Placeholder, Row } from 'react-bootstrap';
 import { Link } from 'react-router';
-import { useTickerHistoricalPrice, useTickerGlobalQuote } from 'hooks';
+import { useTickerHistoricalPrice, useTickerGlobalQuote, useNavigateOnMissingData } from 'hooks';
 import { TickerLogo, TickerMovementChart, ChangePercentage } from 'components';
 
 interface IWatchlistItemProps {
@@ -18,6 +18,7 @@ export const WatchlistItem: React.FC<IWatchlistItemProps> = ({ ticker }) => {
     data: tickerHistoricalPrice,
     isLoading: isLoadingTickerHistoricalPrice,
     isError: isErrorTickerHistoricalPrice,
+    isRateLimitError: isRateLimitErrorTickerHistoricalPrice,
   } = useTickerHistoricalPrice({
     ticker,
     timeRange: TickerMovementTimeRange.OneDay,
@@ -26,7 +27,14 @@ export const WatchlistItem: React.FC<IWatchlistItemProps> = ({ ticker }) => {
     data: globalQuote,
     isLoading: isLoadingGlobalQuote,
     isError: isErrorGlobalQuote,
+    isRateLimitError: isRateLimitErrorGlobalQuote,
   } = useTickerGlobalQuote(ticker);
+
+  useNavigateOnMissingData({
+    shouldNavigate: isRateLimitErrorTickerHistoricalPrice || isRateLimitErrorGlobalQuote,
+    pageToNavigate: Page.NotFound,
+  });
+
   const historicalData = mapTickerHistoricalPriceToPoints(
     tickerHistoricalPrice,
     TickerMovementTimeRange.OneDay,

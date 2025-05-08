@@ -1,6 +1,6 @@
-import { IPortfolioItem } from 'common';
+import { IPortfolioItem, Page } from 'common';
 import { ChangePercentage, TickerLogo } from 'components';
-import { useFinnhubTickerProfile, useTickerGlobalQuote } from 'hooks';
+import { useFinnhubTickerProfile, useNavigateOnMissingData, useTickerGlobalQuote } from 'hooks';
 import { useEffect } from 'react';
 import { Col, ListGroup, Placeholder, Row } from 'react-bootstrap';
 
@@ -14,11 +14,19 @@ export const PortfolioItem: React.FC<IPortfolioItemProps> = ({
   setPortfolioPnL,
 }) => {
   const { ticker, quantity, averagePrice, totalCost } = portfolioItem;
-  const { data: globalQuote, isLoading: isLoadingGlobalQuote } =
-    useTickerGlobalQuote(ticker!);
+  const {
+    data: globalQuote,
+    isLoading: isLoadingGlobalQuote,
+    isRateLimitError: isRateLimitErrorGlobalQuote,
+  } = useTickerGlobalQuote(ticker!);
   const { price: currentPrice } = globalQuote || {};
   const { data: tickerProfile } = useFinnhubTickerProfile(ticker);
   const { name: tickerName } = tickerProfile || {};
+
+  useNavigateOnMissingData({
+    shouldNavigate: isRateLimitErrorGlobalQuote,
+    pageToNavigate: Page.NotFound,
+  });
 
   const unitMovement = currentPrice
     ? parseFloat(currentPrice) - averagePrice

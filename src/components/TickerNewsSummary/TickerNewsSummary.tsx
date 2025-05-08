@@ -1,5 +1,6 @@
+import { Page } from 'common';
 import { TickerNewsItem, Spacer, TickerNewsItemLoading } from 'components';
-import { useTickerNews } from 'hooks';
+import { useNavigateOnMissingData, useTickerNews } from 'hooks';
 import { useState } from 'react';
 import { ListGroup, Button, Modal } from 'react-bootstrap';
 import { Link } from 'react-router';
@@ -14,8 +15,14 @@ export const TickerNewsSummary = ({ ticker }: ITickerNewsSummaryProps) => {
     data: news,
     isLoading: isLoadingTickerNews,
     isError: isErrorTickerNews,
+    isRateLimitError: isRateLimitErrorTickerNews,
   } = useTickerNews(ticker, numberOfNewsToFetch);
   const [showTickerNewsModal, setShowTickerNewsModal] = useState(false);
+
+  useNavigateOnMissingData({
+    shouldNavigate: isRateLimitErrorTickerNews,
+    pageToNavigate: Page.RateLimit,
+  });
 
   const renderTickerNewsSummary = (renderAll: boolean) => {
     const numberToRender = renderAll ? numberOfNewsToFetch : 5;

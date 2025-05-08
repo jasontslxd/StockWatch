@@ -1,8 +1,7 @@
 import { Button, Col, Modal, Row } from 'react-bootstrap';
-import { useTopGainerLoser } from 'hooks';
+import { useTopGainerLoser, useNavigateOnMissingData } from 'hooks';
 import { Spacer, TickerCard, TickerCardLoading } from 'components';
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router';
+import { useState } from 'react';
 import { Page } from 'common';
 
 export const GainersLosers: React.FC = () => {
@@ -14,13 +13,11 @@ export const GainersLosers: React.FC = () => {
   } = useTopGainerLoser();
   const [showTopGainersLosersModal, setShowTopGainersLosersModal] =
     useState(false);
-  const navigate = useNavigate();
 
-  useEffect(() => {
-    if (isRateLimitErrorTopGainersLosers) {
-      navigate(Page.RateLimit);
-    }
-  }, [isRateLimitErrorTopGainersLosers, navigate]);
+  useNavigateOnMissingData({
+    shouldNavigate: isRateLimitErrorTopGainersLosers,
+    pageToNavigate: Page.RateLimit,
+  });
 
   const renderTopGainersLosers = (renderOnlyTop: boolean) => {
     const numberToRender = renderOnlyTop ? 1 : 5;

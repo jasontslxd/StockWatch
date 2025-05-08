@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from 'react-router';
+import { useParams } from 'react-router';
 import {
   InstrumentHeader,
   PurchaseModal,
@@ -9,7 +9,7 @@ import {
 import { Button, Container } from 'react-bootstrap';
 import { useContext, useEffect, useState } from 'react';
 import { Page } from 'common';
-import { useAuth, useTickerGlobalQuote } from 'hooks';
+import { useAuth, useNavigateOnMissingData, useTickerGlobalQuote } from 'hooks';
 import { addTickerToWatchlist, getWatchList } from 'firestore';
 import { removeTickerFromWatchlist } from 'firestore';
 import { FirestoreContext } from 'contexts';
@@ -17,7 +17,6 @@ import { FirestoreContext } from 'contexts';
 export const Instrument: React.FC = () => {
   const { user } = useAuth();
   const { ticker } = useParams();
-  const navigate = useNavigate();
   const [showPurchaseModal, setShowPurchaseModal] = useState(false);
   const [isStarred, setIsStarred] = useState(false);
   const { firestore } = useContext(FirestoreContext);
@@ -25,13 +24,18 @@ export const Instrument: React.FC = () => {
     data: globalQuote,
     isLoading: isLoadingGlobalQuote,
     isError: isErrorGlobalQuote,
+    isRateLimitError: isRateLimitErrorGlobalQuote,
   } = useTickerGlobalQuote(ticker);
 
-  useEffect(() => {
-    if (!ticker) {
-      navigate(Page.NotFound);
-    }
-  }, [ticker, navigate]);
+  useNavigateOnMissingData({
+    shouldNavigate: !ticker,
+    pageToNavigate: Page.NotFound,
+  });
+
+  useNavigateOnMissingData({
+    shouldNavigate: isRateLimitErrorGlobalQuote,
+    pageToNavigate: Page.NotFound,
+  });
 
   useEffect(() => {
     if (firestore && user && ticker) {

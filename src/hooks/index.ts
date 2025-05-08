@@ -5,3 +5,4 @@ export * from './useFinnhubTickerProfile';
 export * from './useTickerNews';
 export * from './useTickerGlobalQuote';
 export * from './useTickerHistoricalPrice';
+export * from './useNavigateOnMissingData';

@@ -60,16 +60,11 @@ export const MobileSubmission: React.FC<IMobileSubmissionProps> = ({
     const phoneNumberWithCountryCode = `+852${phoneNumber}`;
     setIsLoading(true);
 
-    const testPhoneNumber = '+85212345678';
-
     // TODO: check if phone number already exists if flow is sign up
     try {
-      const finalMobileNumber = import.meta.env.PROD
-        ? phoneNumberWithCountryCode
-        : testPhoneNumber;
       (window as any).confirmationResult = await signInWithPhoneNumber(
         auth,
-        finalMobileNumber,
+        phoneNumberWithCountryCode,
         (window as any).recaptchaVerifier,
       );
     } catch (error) {

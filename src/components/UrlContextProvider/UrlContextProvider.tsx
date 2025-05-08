@@ -7,6 +7,7 @@ export const UrlContextProvider = ({
   children: React.ReactNode;
 }) => {
   const [shouldUseRealUrl, setShouldUseRealUrl] = useState(true);
+  console.log(shouldUseRealUrl);
 
   return (
     <UrlContext.Provider value={{ shouldUseRealUrl, setShouldUseRealUrl }}>
