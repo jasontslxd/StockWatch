@@ -15,7 +15,7 @@ https://github.com/user-attachments/assets/b6923683-7159-440e-bc4b-e4367fb782a6
 
 ### Android demo with demo endpoints
 
-https://github.com/user-attachments/assets/08c31e0f-5408-4d0e-a7f9-7a8d17c247eb
+https://github.com/user-attachments/assets/b3e30c57-c227-45b2-a755-40b8de650fb0
 
 ## Features and Technologies used
 
