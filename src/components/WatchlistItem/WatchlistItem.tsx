@@ -37,7 +37,7 @@ export const WatchlistItem: React.FC<IWatchlistItemProps> = ({ ticker }) => {
   useNavigateOnMissingData({
     shouldNavigate:
       isRateLimitErrorTickerHistoricalPrice || isRateLimitErrorGlobalQuote,
-    pageToNavigate: Page.NotFound,
+    pageToNavigate: Page.RateLimit,
   });
 
   const historicalData = mapTickerHistoricalPriceToPoints(

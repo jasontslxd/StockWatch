@@ -34,7 +34,7 @@ export const Instrument: React.FC = () => {
 
   useNavigateOnMissingData({
     shouldNavigate: isRateLimitErrorGlobalQuote,
-    pageToNavigate: Page.NotFound,
+    pageToNavigate: Page.RateLimit,
   });
 
   useEffect(() => {

@@ -62,7 +62,7 @@ export const PortfolioSummary: React.FC = () => {
             <Placeholder xs={12} />
           </Placeholder>
         ) : (
-          `$${totalValue}`
+          `$${totalValue.toFixed(4)}`
         )}
       </h2>
       {renderPortfolioPnL()}

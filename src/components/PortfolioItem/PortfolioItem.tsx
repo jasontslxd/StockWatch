@@ -29,7 +29,7 @@ export const PortfolioItem: React.FC<IPortfolioItemProps> = ({
 
   useNavigateOnMissingData({
     shouldNavigate: isRateLimitErrorGlobalQuote,
-    pageToNavigate: Page.NotFound,
+    pageToNavigate: Page.RateLimit,
   });
 
   const unitMovement = currentPrice
