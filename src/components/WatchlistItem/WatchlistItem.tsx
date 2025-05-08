@@ -6,7 +6,11 @@ import {
 } from 'common';
 import { Col, ListGroup, Placeholder, Row } from 'react-bootstrap';
 import { Link } from 'react-router';
-import { useTickerHistoricalPrice, useTickerGlobalQuote, useNavigateOnMissingData } from 'hooks';
+import {
+  useTickerHistoricalPrice,
+  useTickerGlobalQuote,
+  useNavigateOnMissingData,
+} from 'hooks';
 import { TickerLogo, TickerMovementChart, ChangePercentage } from 'components';
 
 interface IWatchlistItemProps {
@@ -31,7 +35,8 @@ export const WatchlistItem: React.FC<IWatchlistItemProps> = ({ ticker }) => {
   } = useTickerGlobalQuote(ticker);
 
   useNavigateOnMissingData({
-    shouldNavigate: isRateLimitErrorTickerHistoricalPrice || isRateLimitErrorGlobalQuote,
+    shouldNavigate:
+      isRateLimitErrorTickerHistoricalPrice || isRateLimitErrorGlobalQuote,
     pageToNavigate: Page.NotFound,
   });
 

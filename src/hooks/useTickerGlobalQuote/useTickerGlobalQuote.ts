@@ -18,10 +18,9 @@ export const useTickerGlobalQuote = (
 
   const { isPending, error, data } = useQuery({
     queryKey: ['tickerGlobalQuote', ticker, shouldUseRealUrl],
-    queryFn: ticker
-      ? (): Promise<ITickerGlobalQuoteApiResponse> =>
-          fetch(shouldUseRealUrl ? url : demoUrl).then((res) => res.json())
-      : undefined,
+    queryFn: (): Promise<ITickerGlobalQuoteApiResponse> =>
+      fetch(shouldUseRealUrl ? url : demoUrl).then((res) => res.json()),
+    enabled: !!ticker,
   });
 
   if (isPending) {

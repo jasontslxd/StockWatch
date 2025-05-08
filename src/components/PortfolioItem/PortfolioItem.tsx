@@ -1,6 +1,10 @@
 import { IPortfolioItem, Page } from 'common';
 import { ChangePercentage, TickerLogo } from 'components';
-import { useFinnhubTickerProfile, useNavigateOnMissingData, useTickerGlobalQuote } from 'hooks';
+import {
+  useFinnhubTickerProfile,
+  useNavigateOnMissingData,
+  useTickerGlobalQuote,
+} from 'hooks';
 import { useEffect } from 'react';
 import { Col, ListGroup, Placeholder, Row } from 'react-bootstrap';
 
