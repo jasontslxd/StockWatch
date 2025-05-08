@@ -21,15 +21,16 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
-    "baseUrl": "src",
+    "baseUrl": ".",
     "paths": {
-      "components": ["components"],
-      "hooks": ["hooks"],
-      "common": ["common"],
-      "pages": ["pages"],
-      "contexts": ["contexts"],
-      "firestore": ["firestore"],
-      "mocks": ["mocks"]
+      "components": ["src/components"],
+      "hooks": ["src/hooks"],
+      "common": ["src/common"],
+      "pages": ["src/pages"],
+      "contexts": ["src/contexts"],
+      "firestore": ["src/firestore"],
+      "mocks": ["mocks"],
+      "testUtils": ["src/testUtils"]
     }
   },
   "include": ["src"]

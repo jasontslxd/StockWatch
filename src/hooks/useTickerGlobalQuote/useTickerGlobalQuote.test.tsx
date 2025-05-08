@@ -26,7 +26,7 @@ describe('useTickerGlobalQuote', () => {
 
   const wrapper = ({ children }: { children: React.ReactNode }) => (
     <QueryClientProvider client={queryClient}>
-      <UrlContext.Provider value={{ shouldUseRealUrl: false }}>
+      <UrlContext.Provider value={{ shouldUseRealUrl: false, setShouldUseRealUrl: vi.fn() }}>
         {children}
       </UrlContext.Provider>
     </QueryClientProvider>
@@ -129,7 +129,7 @@ describe('useTickerGlobalQuote', () => {
   it('should use real URL when shouldUseRealUrl is true', async () => {
     const realUrlWrapper = ({ children }: { children: React.ReactNode }) => (
       <QueryClientProvider client={queryClient}>
-        <UrlContext.Provider value={{ shouldUseRealUrl: true }}>
+        <UrlContext.Provider value={{ shouldUseRealUrl: true, setShouldUseRealUrl: vi.fn() }}>
           {children}
         </UrlContext.Provider>
       </QueryClientProvider>
