@@ -1,6 +1,7 @@
 # StockWatch
 
 An stock market tracker app built with React + Typescript, integrated with Firebase, Alpha Vantage and Finnhub.
+Tested using node v22.14.0.
 
 ## Showcase
 
@@ -16,6 +17,30 @@ https://github.com/user-attachments/assets/b6923683-7159-440e-bc4b-e4367fb782a6
 
 https://github.com/user-attachments/assets/08c31e0f-5408-4d0e-a7f9-7a8d17c247eb
 
+## Features and Technologies used
+
+| Category | Technologies/Features |
+|----------|----------------------|
+| Frontend | React + TypeScript |
+| Database | Firebase |
+| APIs | Alpha Vantage, Finnhub |
+| Authentication | Firebase Authentication (Phone OTP) |
+| Platforms | Web, Android (with Capacitor) |
+| Build Tools | Bun, Firebase Tools |
+| Testing | Vitest (Partial Coverage) |
+
+## Tests implemented so far
+
+Unfortunately I did not have enough time to write tests for all functionalities implemented in 2 weeks, so I have written tests
+for a file in each folder in src. I will continue to add tests for other components when I have time in the future.
+
+| Folder | Test |
+| ------ | ---- |
+| src | App.test.tsx |
+| src/pages/Dashboard | Dashboard.test.tsx |
+| src/hooks/useTickerGlobalQuote | useTickerGlobalQuote.test.tsx, useTickerGlobalQuote.service.test.ts |
+| src/components/TickerNewsSummary | TickerNewsSummary.test.tsx |
+
 ## Setting up the dev environment
 
 ```sh
@@ -30,6 +55,12 @@ and `VITE_ALPHAVANTAGE_API_KEY` from [Alpha Vantage](https://www.alphavantage.co
 
 ```sh
 bun dev
+```
+
+## To run unit tests
+
+```sh
+bun run test 
 ```
 
 ## To commit
