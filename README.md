@@ -1,13 +1,12 @@
 # StockWatch
 
-An stock market tracker app built with React + Typescript, integrated with Firebase, Alpha Vantage and Finnhub.
+A stock market tracker app built with React + Typescript, integrated with Firebase, Alpha Vantage and Finnhub.
 Tested using node v22.14.0.
 
 ## Showcase
 
-Alpha Vantage has a rate limit of 25 requests per day for the free api key, so we have to switch to the demo api after the rate limit is up.
-The webapp can be found here https://stockwatch-5077f.web.app/, and you can login with the demo account 12345678, OTP 123456.
-If you have a HK number you can also enter your mobile number and verify your OTP that way.
+Alpha Vantage has a rate limit of 25 requests per day for the free api key, so we have to switch to the demo api after the rate limit is up. The demo endpoint is also provided by Alpha Vantage, but for every endpoint it always returns the same data, e.g. for the intraday data it will always provide data for IBM (see https://www.alphavantage.co/documentation/#intraday). So in the demo showcase video all the tickers are actually pulling in the data for IBM, which is why for example all their historical data and prices are the same.
+The webapp can be found here https://stockwatch-5077f.web.app/, and you can login with the demo account 12345678, OTP 123456. If you have a HK number you can also enter your mobile number and verify your OTP that way.
 
 ### Web app demo with real endpoints
 
