@@ -3,6 +3,7 @@ import {
   AppHeader,
   AppNavigation,
   PortfolioSummary,
+  Spacer,
 } from 'components';
 
 export const Portfolio: React.FC = () => {
@@ -11,6 +12,8 @@ export const Portfolio: React.FC = () => {
       <AppHeader title="Portfolio" />
       <AppContainer>
         <PortfolioSummary />
+        <Spacer size="xxlg" />
+        <Spacer size="xxlg" />
       </AppContainer>
       <AppNavigation />
     </>
